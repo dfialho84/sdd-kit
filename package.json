@@ -28,5 +28,8 @@
         "bin/",
         "template/",
         "src/"
-    ]
+    ],
+    "dependencies": {
+        "fs-extra": "^11.3.4"
+    }
 }
