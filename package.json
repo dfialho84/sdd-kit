@@ -20,7 +20,7 @@
     },
     "license": "MIT",
     "author": "Diego Fialho Rodrigues",
-    "type": "commonjs",
+    "type": "module",
     "bin": {
         "sdd-kit": "./bin/sdd-kit.js"
     },
