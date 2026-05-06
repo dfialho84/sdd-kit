@@ -1,5 +1,8 @@
 {
-    "name": "npm",
+    "name": "@dfialho84/sdd-kit",
+    "publishConfig": {
+        "access": "public"
+    },
     "version": "1.0.0",
     "description": "Kit de agentes para desenovlvimento SDD no Claude",
     "keywords": [
