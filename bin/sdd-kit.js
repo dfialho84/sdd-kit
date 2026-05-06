@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import { installToProject, installGlobal, compileTemplates } from "../src/install.js";
-import readline from "readline";
 
 const args = process.argv.slice(2);
 const command = args[0];
@@ -27,25 +26,59 @@ function printHeader() {
 }
 
 async function askPlatform() {
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
+    const options = [
+        { label: "Claude Code",           value: "claude" },
+        { label: "Gemini CLI",            value: "gemini" },
+        { label: "Ambas as plataformas",  value: "both"   },
+    ];
+
+    const RESET  = "\x1b[0m";
+    const BOLD   = "\x1b[1m";
+    const CYAN   = "\x1b[96m";
+    const DIM    = "\x1b[2m";
+
+    function render(selected) {
+        process.stdout.write(`\x1b[${options.length}A`); // move up N lines
+        options.forEach((opt, i) => {
+            const cursor = i === selected ? `${BOLD}${CYAN}▶ ` : `${DIM}  `;
+            const num    = i === selected ? `${BOLD}${CYAN}${i + 1})` : `${DIM}${i + 1})`;
+            const text   = i === selected ? `${BOLD}${CYAN}${opt.label}` : `${DIM}${opt.label}`;
+            process.stdout.write(`\r${cursor}${num} ${text}${RESET}\n`);
+        });
+    }
 
     return new Promise((resolve) => {
-        console.log("\n🚀 sdd-kit - Qual plataforma você deseja instalar?\n");
-        console.log("1) Claude Code");
-        console.log("2) Gemini CLI");
-        console.log("3) Ambas as plataformas\n");
+        console.log(`\n${BOLD}Qual plataforma você deseja instalar?${RESET}\n`);
 
-        rl.question("Escolha uma opção (1-3): ", (answer) => {
-            rl.close();
-            const platformMap = {
-                "1": "claude",
-                "2": "gemini",
-                "3": "both"
-            };
-            resolve(platformMap[answer] || "claude");
+        let selected = 0;
+        options.forEach((opt, i) => {
+            process.stdout.write(`  ${DIM}${i + 1}) ${opt.label}${RESET}\n`);
+        });
+
+        process.stdin.setRawMode(true);
+        process.stdin.resume();
+        process.stdin.setEncoding("utf8");
+
+        render(selected);
+
+        process.stdin.on("data", function onKey(key) {
+            if (key === "\x1B[A") {                         // arrow up
+                selected = (selected - 1 + options.length) % options.length;
+                render(selected);
+            } else if (key === "\x1B[B") {                  // arrow down
+                selected = (selected + 1) % options.length;
+                render(selected);
+            } else if (key === "\r" || key === "\n") {      // enter
+                process.stdin.setRawMode(false);
+                process.stdin.pause();
+                process.stdin.removeListener("data", onKey);
+                console.log();
+                resolve(options[selected].value);
+            } else if (key === "\x03") {                    // ctrl+c
+                process.stdin.setRawMode(false);
+                process.stdout.write("\n");
+                process.exit(0);
+            }
         });
     });
 }
@@ -53,7 +86,7 @@ async function askPlatform() {
 async function run() {
     printHeader();
 
-    if (command === "init") {
+    if (command === "init" || command === undefined) {
         const global = args.includes("--global");
         let platform = "claude";
 

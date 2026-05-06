@@ -52,14 +52,14 @@ npx @dfialho84/sdd-kit init
 ```
 
 ```
-🚀 sdd-kit - Qual plataforma você deseja instalar?
+Qual plataforma você deseja instalar?
 
-1) Claude Code
-2) Gemini CLI
-3) Ambas as plataformas
-
-Escolha uma opção (1-3):
+▶ 1) Claude Code
+  2) Gemini CLI
+  3) Ambas as plataformas
 ```
+
+Use ↑/↓ para navegar e Enter para confirmar.
 
 ### Especificando a plataforma diretamente
 
