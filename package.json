@@ -28,5 +28,8 @@
         "bin/",
         "template/",
         "src/"
-    ]
+    ],
+    "dependencies": {
+        "@dfialho84/sdd-kit": "^1.0.0"
+    }
 }
