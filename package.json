@@ -1,0 +1,29 @@
+{
+    "name": "npm",
+    "version": "1.0.0",
+    "description": "Kit de agentes para desenovlvimento SDD no Claude",
+    "keywords": [
+        "SDD",
+        "CLAUDE",
+        "AGENTS"
+    ],
+    "homepage": "https://github.com/dfialho84/sdd-kit#readme",
+    "bugs": {
+        "url": "https://github.com/dfialho84/sdd-kit/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dfialho84/sdd-kit.git"
+    },
+    "license": "MIT",
+    "author": "Diego Fialho Rodrigues",
+    "type": "commonjs",
+    "bin": {
+        "sdd-kit": "./bin/sdd-kit.js"
+    },
+    "files": [
+        "bin/",
+        "template/",
+        "src/"
+    ]
+}
