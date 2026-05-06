@@ -1,12 +1,23 @@
 # sdd-kit
 
-> Toolkit de comandos, agentes e skills para **Specification-Driven Development (SDD)** com Claude Code.
+> Toolkit de comandos, agentes e skills para **Specification-Driven Development (SDD)** com Claude Code e Gemini CLI.
 
-O `sdd-kit` instala no seu projeto (ou globalmente) um conjunto de artefatos prontos para uso no Claude Code, cobrindo todo o fluxo SDD — da constituição à implementação.
+O `sdd-kit` instala no seu projeto (ou globalmente) um conjunto de artefatos prontos para uso, cobrindo todo o fluxo SDD — da constituição à implementação.
+
+---
+
+## Plataformas suportadas
+
+| Plataforma      | Localização instalada | Artefatos                                      |
+| --------------- | --------------------- | ---------------------------------------------- |
+| **Claude Code** | `.claude/`            | Comandos `/sdd-*`, agentes e skills            |
+| **Gemini CLI**  | `.gemini/`            | Custom commands `/sdd-*`, extensions e skills  |
 
 ---
 
 ## O que é instalado
+
+### Claude Code (`.claude/`)
 
 | Artefato     | Localização         | Descrição                                        |
 | ------------ | ------------------- | ------------------------------------------------ |
@@ -14,12 +25,19 @@ O `sdd-kit` instala no seu projeto (ou globalmente) um conjunto de artefatos pro
 | **Agentes**  | `.claude/agents/`   | Agentes especializados (ex: `impl-agent`)        |
 | **Skills**   | `.claude/skills/`   | Skills reutilizáveis referenciadas pelos agentes |
 
+### Gemini CLI (`.gemini/`)
+
+| Artefato            | Localização              | Descrição                                        |
+| ------------------- | ------------------------ | ------------------------------------------------ |
+| **Custom Commands** | `.gemini/custom-commands/` | Comandos `/sdd-*` para cada etapa do fluxo SDD |
+| **Skills**          | `.gemini/skills/`        | Extensions e skills reutilizáveis pelos agentes  |
+
 ---
 
 ## Requisitos
 
 - [Node.js](https://nodejs.org) 18 ou superior
-- [Claude Code](https://claude.ai/code) instalado e configurado
+- [Claude Code](https://claude.ai/code) e/ou [Gemini CLI](https://github.com/google-gemini/gemini-cli) instalado e configurado
 
 ---
 
@@ -27,18 +45,45 @@ O `sdd-kit` instala no seu projeto (ou globalmente) um conjunto de artefatos pro
 
 ### No projeto atual (recomendado)
 
-Adiciona os artefatos em `.claude/` dentro do diretório do seu projeto:
+Ao rodar sem flags, um prompt interativo pergunta qual plataforma instalar:
 
 ```bash
 npx @dfialho84/sdd-kit init
 ```
 
+```
+🚀 sdd-kit - Qual plataforma você deseja instalar?
+
+1) Claude Code
+2) Gemini CLI
+3) Ambas as plataformas
+
+Escolha uma opção (1-3):
+```
+
+### Especificando a plataforma diretamente
+
+```bash
+# Apenas Claude Code
+npx @dfialho84/sdd-kit init --platform=claude
+
+# Apenas Gemini CLI
+npx @dfialho84/sdd-kit init --platform=gemini
+
+# Ambas as plataformas
+npx @dfialho84/sdd-kit init --platform=both
+# ou
+npx @dfialho84/sdd-kit init --all-platforms
+```
+
 ### Globalmente
 
-Instala em `~/.claude/`, tornando os artefatos disponíveis em qualquer projeto:
+Instala em `~/.claude/` e/ou `~/.gemini/`, tornando os artefatos disponíveis em qualquer projeto:
 
 ```bash
 npx @dfialho84/sdd-kit init --global
+npx @dfialho84/sdd-kit init --global --platform=gemini
+npx @dfialho84/sdd-kit init --global --all-platforms
 ```
 
 ### Instalação permanente via npm
@@ -52,7 +97,7 @@ sdd-kit init
 
 ## Uso
 
-Após a instalação, os comandos ficam disponíveis diretamente no Claude Code. O fluxo SDD segue a ordem abaixo:
+Após a instalação, os comandos ficam disponíveis diretamente no Claude Code ou no Gemini CLI. O fluxo SDD segue a ordem abaixo:
 
 ### Fluxo SDD
 
@@ -81,15 +126,30 @@ Após a instalação, os comandos ficam disponíveis diretamente no Claude Code.
 
 ## Estrutura instalada
 
+### Claude Code
+
 ```
 .claude/
-├── commands/
-│   ├── sdd-spec.md
-│   ├── sdd-impl.md
-│   └── sdd-review.md
+├── commands/sdd/
+│   ├── create-constitution.md
+│   ├── create-prd.md
+│   └── ...
 ├── agents/
 │   └── impl-agent.md
 └── skills/
+    └── ...
+```
+
+### Gemini CLI
+
+```
+.gemini/
+├── custom-commands/
+│   ├── create-constitution.md
+│   ├── create-prd.md
+│   └── ...
+└── skills/
+    ├── impl-agent-agent/
     └── ...
 ```
 
