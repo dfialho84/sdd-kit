@@ -25,17 +25,17 @@ Todas as paths a seguir são relativas a essa raiz.
 
 Execute `Bash` para remover `template/.gemini/` e recriar a estrutura base:
 ```bash
-rm -rf template/.gemini && mkdir -p template/.gemini/skills template/.gemini/custom-commands
+rm -rf template/.gemini && mkdir -p template/.gemini/skills template/.gemini/commands
 ```
 
 ### 3. Converter Commands
 
-Liste todos os `.md` em `template/.claude/commands/` (recursivo, excluindo subdiretórios desnecessários).
+Liste todos os `.md` em `template/.claude/commands/` (recursivo).
 Para cada arquivo:
 1. Leia o arquivo
 2. Extraia frontmatter YAML (`name`, `description`) e o corpo (prompt)
 3. Aplique as regras de conversão de commands da skill `gemini-conversion-standards`
-4. Escreva em `template/.gemini/custom-commands/{name}.json`
+4. Escreva em `template/.gemini/commands/{name}.toml` (formato TOML, **não** JSON)
 
 ### 4. Converter Skills
 

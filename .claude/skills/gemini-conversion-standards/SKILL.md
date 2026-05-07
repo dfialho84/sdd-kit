@@ -11,13 +11,16 @@ description: >
 
 | Tipo Claude | Arquivo fonte | Arquivo destino | Formato |
 |-------------|--------------|-----------------|---------|
-| Command | `template/.claude/commands/**/*.md` | `template/.gemini/custom-commands/{name}.json` | JSON |
+| Command | `template/.claude/commands/**/*.md` | `template/.gemini/commands/{name}.toml` | TOML |
 | Skill | `template/.claude/skills/{name}/SKILL.md` | `template/.gemini/skills/{name}/SKILL.md` | Markdown |
 | Agent | `template/.claude/agents/{name}.md` | `template/.gemini/skills/{name}-agent/SKILL.md` | Markdown |
 
 ---
 
-## Commands: `.md` → `.json`
+## Commands: `.md` → `.toml`
+
+O formato de commands do Gemini CLI é **TOML** (extensão `.toml`), não JSON.
+O `name` **não** vai no arquivo — é derivado do nome do arquivo.
 
 ### Estrutura do arquivo fonte (Claude)
 
@@ -34,22 +37,26 @@ Repasse para o agente o parâmetro informado pelo usuário: $ARGUMENTS
 
 ### Estrutura do arquivo destino (Gemini)
 
-```json
-{
-  "name": "create-prd",
-  "description": "cria um arquivo PRD de forma incremental",
-  "prompt": "Inicie o agente `prd-creator-agent`.\nRepasse para o agente o parâmetro informado pelo usuário: $ARGUMENTS"
-}
+`template/.gemini/commands/create-prd.toml`:
+```toml
+description = "cria um arquivo PRD de forma incremental"
+prompt = """
+Inicie o agente `prd-creator-agent`.
+Repasse para o agente o parâmetro informado pelo usuário: {{args}}
+"""
 ```
 
 ### Regras
 
-- `name` → `name` (idêntico)
-- `description` → `description` (idêntico; se for YAML multiline `>`, extraia o texto completo sem o `>`)
-- Corpo do markdown (tudo após o bloco `---` de fechamento) → `prompt` (como string, newlines preservados com `\n`)
+- **Formato:** TOML, extensão `.toml`. Nunca JSON.
+- **`name`:** NÃO inclua no arquivo TOML — o nome do command é o nome do arquivo.
+- `description` do frontmatter → campo `description` TOML (string entre aspas duplas)
+- Corpo do markdown (tudo após o `---` de fechamento) → campo `prompt` TOML (multiline string com `"""`)
+- `$ARGUMENTS` no corpo → substituir por `{{args}}` no `prompt`
 - Remova campos exclusivos do Claude: `argument-hint`, `model`, `color`, `tools`, `skills`
-- **Não** adicione `$ARGUMENTS` se não estiver no original
-- Commands em subdiretórios (ex: `commands/sdd/create-prd.md`) → destino flat em `custom-commands/create-prd.json`
+- **Não** adicione `{{args}}` se `$ARGUMENTS` não estiver no original
+- Commands em subdiretórios (ex: `commands/sdd/create-prd.md`) → destino flat em `commands/create-prd.toml`
+- Diretório destino: `template/.gemini/commands/` (não `custom-commands/`)
 
 ---
 
