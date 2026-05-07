@@ -32,6 +32,15 @@ O `sdd-kit` instala no seu projeto (ou globalmente) um conjunto de artefatos pro
 | **Custom Commands** | `.gemini/custom-commands/` | Comandos `/sdd-*` para cada etapa do fluxo SDD |
 | **Skills**          | `.gemini/skills/`        | Extensions e skills reutilizáveis pelos agentes  |
 
+### Formatos SDD (`docs/sdd/`)
+
+| Arquivo                  | Descrição                                               |
+| ------------------------ | ------------------------------------------------------- |
+| `<artefato>-format.md`   | Especificação de formato para cada artefato SDD         |
+| `<artefato>-example.md`  | Exemplo canônico de saída para cada artefato SDD        |
+
+Esses arquivos ficam em `docs/sdd/` no projeto e são lidos pelos agentes em tempo de execução. Veja a seção [Customização de formatos](#customização-de-formatos) para saber como ajustá-los.
+
 ---
 
 ## Requisitos
@@ -152,6 +161,45 @@ Após a instalação, os comandos ficam disponíveis diretamente no Claude Code 
     ├── impl-agent-agent/
     └── ...
 ```
+
+### Formatos e exemplos SDD (ambas as plataformas)
+
+```
+docs/sdd/
+├── prd-format.md
+├── prd-example.md
+├── reqs-format.md
+├── reqs-example.md
+├── ...                        ← um par format/example por artefato
+└── scenarios-example.feature
+```
+
+---
+
+## Customização de formatos
+
+Cada artefato SDD (PRD, requisitos, design, etc.) tem um arquivo `docs/sdd/<artefato>-format.md` instalado no projeto. Os agentes leem esse arquivo em tempo de execução e o utilizam como especificação de formato — substituindo o formato padrão embutido na skill.
+
+Para adaptar um artefato ao padrão do seu projeto, basta editar o arquivo correspondente:
+
+```
+docs/sdd/
+├── prd-format.md              ← edite para customizar o formato do PRD
+├── reqs-format.md             ← edite para customizar requisitos funcionais
+├── nf-reqs-format.md          ← edite para customizar requisitos não funcionais
+├── design-format.md           ← edite para customizar o design técnico
+├── design-system-format.md    ← edite para customizar o design system
+├── user-stories-format.md     ← edite para customizar as user stories
+├── scenarios-format.md        ← edite para customizar os cenários BDD
+├── test-strategy-format.md    ← edite para customizar a estratégia de testes
+├── tasks-format.md            ← edite para customizar o formato de tasks
+├── views-format.md            ← edite para customizar a documentação de telas
+└── constitution-format.md     ← edite para customizar a constitution
+```
+
+Os arquivos `*-example.md` (e `scenarios-example.feature`) servem como referência canônica de saída e também podem ser substituídos por exemplos próprios do projeto.
+
+> Se um arquivo `docs/sdd/<artefato>-format.md` não existir, o agente usa o formato padrão embutido na skill.
 
 ---
 
