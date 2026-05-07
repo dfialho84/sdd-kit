@@ -9,14 +9,36 @@ const templateDir = path.resolve(__dirname, "../template");
 export function installToProject(platform = "claude") {
     const cwd = process.cwd();
 
-    if (platform === "claude" || platform === "both") {
+    if (platform === "claude") {
         const claudeSource = path.join(templateDir, ".claude");
         const claudeDest = path.join(cwd, ".claude");
         fs.copySync(claudeSource, claudeDest, { overwrite: false });
         console.log("✅ sdd-kit instalado em .claude/");
-    }
+    } else if (platform === "gemini") {
+        const geminiSource = path.join(templateDir, ".gemini");
 
-    if (platform === "gemini" || platform === "both") {
+        // If .gemini doesn't exist in template, compile from .claude
+        if (!fs.existsSync(geminiSource)) {
+            console.log("🔄 Compilando artefatos Claude para Gemini...");
+            const compiler = new ClaudeToGeminiCompiler(
+                path.join(templateDir, ".claude"),
+                geminiSource
+            );
+            const result = compiler.compile();
+            if (!result.success) {
+                throw new Error("Falha ao compilar artefatos para Gemini");
+            }
+        }
+
+        const geminiDest = path.join(cwd, ".gemini");
+        fs.copySync(geminiSource, geminiDest, { overwrite: false });
+        console.log("✅ sdd-kit instalado em .gemini/");
+    } else if (platform === "both") {
+        const claudeSource = path.join(templateDir, ".claude");
+        const claudeDest = path.join(cwd, ".claude");
+        fs.copySync(claudeSource, claudeDest, { overwrite: false });
+        console.log("✅ sdd-kit instalado em .claude/");
+
         const geminiSource = path.join(templateDir, ".gemini");
 
         // If .gemini doesn't exist in template, compile from .claude
@@ -68,14 +90,36 @@ export function compileTemplates(platforms = ["gemini"]) {
 export function installGlobal(platform = "claude") {
     const homeDir = process.env.HOME;
 
-    if (platform === "claude" || platform === "both") {
+    if (platform === "claude") {
         const claudeSource = path.join(templateDir, ".claude");
         const claudeDest = path.join(homeDir, ".claude");
         fs.copySync(claudeSource, claudeDest, { overwrite: false });
         console.log("✅ sdd-kit instalado globalmente em ~/.claude/");
-    }
+    } else if (platform === "gemini") {
+        const geminiSource = path.join(templateDir, ".gemini");
 
-    if (platform === "gemini" || platform === "both") {
+        // If .gemini doesn't exist in template, compile from .claude
+        if (!fs.existsSync(geminiSource)) {
+            console.log("🔄 Compilando artefatos Claude para Gemini...");
+            const compiler = new ClaudeToGeminiCompiler(
+                path.join(templateDir, ".claude"),
+                geminiSource
+            );
+            const result = compiler.compile();
+            if (!result.success) {
+                throw new Error("Falha ao compilar artefatos para Gemini");
+            }
+        }
+
+        const geminiDest = path.join(homeDir, ".gemini");
+        fs.copySync(geminiSource, geminiDest, { overwrite: false });
+        console.log("✅ sdd-kit instalado globalmente em ~/.gemini/");
+    } else if (platform === "both") {
+        const claudeSource = path.join(templateDir, ".claude");
+        const claudeDest = path.join(homeDir, ".claude");
+        fs.copySync(claudeSource, claudeDest, { overwrite: false });
+        console.log("✅ sdd-kit instalado globalmente em ~/.claude/");
+
         const geminiSource = path.join(templateDir, ".gemini");
 
         // If .gemini doesn't exist in template, compile from .claude
