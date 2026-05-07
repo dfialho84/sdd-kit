@@ -1,0 +1,5 @@
+{
+  "name": "create-nf-reqs",
+  "description": "cria o arquivo de requisitos não funcionais a partir do PRD, User Stories, cenários BDD e requisitos funcionais da feature, de forma incremental",
+  "prompt": "Inicie o agente `nf-reqs-agent`.\nRepasse para o agente o parâmetro informado pelo usuário: $ARGUMENTS"
+}

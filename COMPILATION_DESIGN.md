@@ -2,16 +2,17 @@
 
 ## Mapeamento Semântico
 
-| Artefato Claude | Semântica | Artefato Gemini | Formato |
-|---|---|---|---|
-| `.claude/skills/<name>/SKILL.md` | Definição de skill com instrução | `.gemini/skills/<name>/SKILL.md` | Markdown com frontmatter YAML |
-| `.claude/commands/<name>.md` | Prompt que invoca um fluxo | `.gemini/custom-commands/<name>.json` | JSON config + ícone |
-| `.claude/agents/<name>.md` | Spec de sub-agente | `.gemini/skills/<name>/SKILL.md` (ou subagent config) | SKILL.md ou agents.json |
-| `.claude/skills/<name>/references/` | Materiais de referência | `.gemini/skills/<name>/references/` | Mesmo diretório |
+| Artefato Claude                     | Semântica                        | Artefato Gemini                                       | Formato                       |
+| ----------------------------------- | -------------------------------- | ----------------------------------------------------- | ----------------------------- |
+| `.claude/skills/<name>/SKILL.md`    | Definição de skill com instrução | `.gemini/skills/<name>/SKILL.md`                      | Markdown com frontmatter YAML |
+| `.claude/commands/<name>.md`        | Prompt que invoca um fluxo       | `.gemini/custom-commands/<name>.json`                 | JSON config + ícone           |
+| `.claude/agents/<name>.md`          | Spec de sub-agente               | `.gemini/skills/<name>/SKILL.md` (ou subagent config) | SKILL.md ou agents.json       |
+| `.claude/skills/<name>/references/` | Materiais de referência          | `.gemini/skills/<name>/references/`                   | Mesmo diretório               |
 
 ## Estrutura de Entrada e Saída
 
 ### Entrada: Claude Format (source of truth)
+
 ```
 .claude/
 ├── commands/
@@ -32,6 +33,7 @@
 ```
 
 ### Saída: Gemini Format
+
 ```
 .gemini/
 ├── skills/
@@ -50,7 +52,7 @@
 
 ---
 
-## Algoritmo de Compilação
+## Algoritmo de CompilaçãoV
 
 ### Fase 1: Parse Claude Artifacts
 
@@ -58,12 +60,12 @@
 parseClaudeSkill(skillPath) {
   // Input: .claude/skills/foo/SKILL.md
   // Output: { name, description, instructions, references }
-  
+
   1. Ler SKILL.md
   2. Extrair frontmatter YAML (name, description, etc)
   3. Extrair body (instruções)
   4. Listar subdirectórios em references/
-  
+
   Return {
     name: <from frontmatter>,
     description: <from frontmatter>,
@@ -78,11 +80,11 @@ parseClaudeSkill(skillPath) {
 parseClaudeCommand(commandPath) {
   // Input: .claude/commands/foo.md
   // Output: { name, prompt, trigger_pattern }
-  
+
   1. Ler arquivo
   2. Extrair frontmatter YAML (name, trigger, model, etc)
   3. Extrair body (prompt)
-  
+
   Return {
     name: <slugified filename>,
     description: <from frontmatter if exists>,
@@ -94,11 +96,11 @@ parseClaudeCommand(commandPath) {
 parseClaudeAgent(agentPath) {
   // Input: .claude/agents/foo.md
   // Output: { name, description, role, tools }
-  
+
   1. Ler arquivo
   2. Extrair frontmatter (name, role, tools, model)
   3. Extrair body (system instructions)
-  
+
   Return {
     name: <from frontmatter>,
     description: <from frontmatter>,
@@ -115,9 +117,9 @@ parseClaudeAgent(agentPath) {
 transformSkillToGemini(claudeSkill) {
   // Input: parsed Claude skill
   // Output: Gemini SKILL.md content
-  
+
   // Gemini SKILL.md é simples: frontmatter + markdown instructions
-  
+
   const geminiSkillMd = `---
 name: ${claudeSkill.name}
 description: ${claudeSkill.description}
@@ -125,32 +127,32 @@ description: ${claudeSkill.description}
 
 ${claudeSkill.instructions}
 `;
-  
+
   Return geminiSkillMd;
 }
 
 transformCommandToGemini(claudeCommand) {
   // Input: parsed Claude command
   // Output: Gemini custom command config
-  
+
   // Gemini custom commands são JSON com prompt/shell
-  
+
   const customCommand = {
     name: claudeCommand.name,
     description: claudeCommand.description,
     prompt: claudeCommand.prompt,
     // trigger: claudeCommand.trigger, // se aplicável
   };
-  
+
   Return JSON.stringify(customCommand, null, 2);
 }
 
 transformAgentToGemini(claudeAgent) {
   // Input: parsed Claude agent
   // Output: Gemini SKILL.md (representando o agente como skill)
-  
+
   // Agents no Gemini são representados como skills especializados
-  
+
   const geminiSkillMd = `---
 name: ${claudeAgent.name}
 description: Agent specializing in: ${claudeAgent.description}
@@ -162,7 +164,7 @@ ${claudeAgent.systemInstructions}
 ## Tools available
 ${claudeAgent.tools.map(t => `- ${t}`).join('\n')}
 `;
-  
+
   Return geminiSkillMd;
 }
 ```
@@ -173,17 +175,17 @@ ${claudeAgent.tools.map(t => `- ${t}`).join('\n')}
 writeGeminiArtifacts(transformedArtifacts, targetPath = ".gemini") {
   // Input: array of { type, name, content, path }
   // Output: writes files to .gemini/
-  
+
   for each artifact:
     1. Determine output path based on type
        - skill → .gemini/skills/<name>/SKILL.md
        - command → .gemini/custom-commands/<name>.json
        - agent → .gemini/skills/<name>-agent/SKILL.md
-    
+
     2. Create directory if not exists
-    
+
     3. Write file (fs.writeFileSync)
-    
+
     4. Copy references/ if exists
        - copySync(.claude/skills/<name>/references → .gemini/skills/<name>/references)
 }
@@ -199,10 +201,10 @@ class ClaudeToGeminiCompiler {
     this.sourcePath = sourcePath;
     this.targetPath = targetPath;
   }
-  
+
   compile() {
     // Main entry point
-    
+
     1. Scan source paths
     2. Parse all artifacts (skills, commands, agents)
     3. Transform each artifact
@@ -210,10 +212,10 @@ class ClaudeToGeminiCompiler {
     5. Validate output
     6. Return summary
   }
-  
+
   compileSkills() {
     const skillDirs = fs.readdirSync(`${this.sourcePath}/skills`);
-    
+
     for each skillDir:
       const parsed = parseClaudeSkill(`${this.sourcePath}/skills/${skillDir}`);
       const transformed = transformSkillToGemini(parsed);
@@ -224,10 +226,10 @@ class ClaudeToGeminiCompiler {
         referencesPath: `${this.sourcePath}/skills/${skillDir}/references`
       }]);
   }
-  
+
   compileCommands() {
     const cmdFiles = fs.readdirSync(`${this.sourcePath}/commands`).filter(f => f.endsWith('.md'));
-    
+
     for each cmdFile:
       const parsed = parseClaudeCommand(`${this.sourcePath}/commands/${cmdFile}`);
       const transformed = transformCommandToGemini(parsed);
@@ -237,10 +239,10 @@ class ClaudeToGeminiCompiler {
         content: transformed
       }]);
   }
-  
+
   compileAgents() {
     const agentFiles = fs.readdirSync(`${this.sourcePath}/agents`).filter(f => f.endsWith('.md'));
-    
+
     for each agentFile:
       const parsed = parseClaudeAgent(`${this.sourcePath}/agents/${agentFile}`);
       const transformed = transformAgentToGemini(parsed);
@@ -271,7 +273,7 @@ validateCompilation(targetPath = ".gemini") {
     commands: validateCommands(`${targetPath}/custom-commands`),
     errors: []
   };
-  
+
   return results;
 }
 ```
@@ -299,21 +301,24 @@ npx sdd-kit init --all-platforms
 
 ```javascript
 async function install(options) {
-  const platform = options.platform || 'claude'; // default
-  
-  if (platform === 'claude') {
-    await installClaude(options);
-  } else if (platform === 'gemini') {
-    // 1. Compile Claude → Gemini
-    const compiler = new ClaudeToGeminiCompiler('./template/.claude', './template/.gemini');
-    compiler.compile();
-    
-    // 2. Copy .gemini to project
-    await installGemini(options);
-  } else if (platform === 'both' || options.allPlatforms) {
-    await installClaude(options);
-    await installGemini(options);
-  }
+    const platform = options.platform || "claude"; // default
+
+    if (platform === "claude") {
+        await installClaude(options);
+    } else if (platform === "gemini") {
+        // 1. Compile Claude → Gemini
+        const compiler = new ClaudeToGeminiCompiler(
+            "./template/.claude",
+            "./template/.gemini",
+        );
+        compiler.compile();
+
+        // 2. Copy .gemini to project
+        await installGemini(options);
+    } else if (platform === "both" || options.allPlatforms) {
+        await installClaude(options);
+        await installGemini(options);
+    }
 }
 ```
 
@@ -326,4 +331,3 @@ async function install(options) {
 3. **v1.1-rc**: Testes de round-trip (Claude ↔ Gemini)
 4. **v1.2**: Suporte a 3ª plataforma (formato agnóstico)
 5. **v2.0**: Hot-reload (mudanças em fonte → regeneração automática)
-

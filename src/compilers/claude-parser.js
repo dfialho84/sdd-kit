@@ -166,20 +166,27 @@ class ClaudeParser {
       }
     }
 
-    // Parse commands
+    // Parse commands (recursively search all subdirectories)
     const commandsDir = path.join(claudePath, 'commands');
     if (fs.existsSync(commandsDir)) {
-      const files = fs.readdirSync(commandsDir);
-      for (const file of files) {
-        if (file.endsWith('.md')) {
-          const cmdPath = path.join(commandsDir, file);
-          try {
-            artifacts.commands.push(this.parseCommand(cmdPath));
-          } catch (err) {
-            console.warn(`Failed to parse command ${file}:`, err.message);
+      const findCommandsRecursive = (dir) => {
+        const files = fs.readdirSync(dir);
+        for (const file of files) {
+          const filePath = path.join(dir, file);
+          const stat = fs.statSync(filePath);
+
+          if (stat.isDirectory()) {
+            findCommandsRecursive(filePath);
+          } else if (file.endsWith('.md')) {
+            try {
+              artifacts.commands.push(this.parseCommand(filePath));
+            } catch (err) {
+              console.warn(`Failed to parse command ${filePath}:`, err.message);
+            }
           }
         }
-      }
+      };
+      findCommandsRecursive(commandsDir);
     }
 
     // Parse agents
