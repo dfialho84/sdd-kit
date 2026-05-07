@@ -10,7 +10,13 @@ description: >
 
 # Padrões de Documentação de Telas (Views)
 
-## Estrutura obrigatória do `tela.md`
+## Especificação de formato
+
+> Se `docs/sdd/views-format.md` existir no projeto, leia-o e use-o como especificação de formato — ele substitui o formato padrão abaixo e pode ter sido customizado para este projeto.
+
+## Formato padrão
+
+### Estrutura obrigatória do `tela.md`
 
 Cada arquivo segue exatamente estas **5 seções**, nesta ordem:
 
@@ -199,5 +205,6 @@ _A preencher manualmente._
 
 ## Referências
 
+- Formato do artefato (customizável): `docs/sdd/views-format.md`
+- Exemplo canônico (customizável): `docs/sdd/views-example.md`
 - Guia de entrevista e banco de perguntas: `references/interview-guide.md`
-- Exemplo anotado de tela.md de qualidade: `references/tela-example.md`

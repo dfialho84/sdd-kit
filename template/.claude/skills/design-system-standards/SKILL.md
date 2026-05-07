@@ -42,7 +42,13 @@ docs/
 
 ---
 
-## Ordem de criação obrigatória
+## Especificação de formato
+
+> Se `docs/sdd/design-system-format.md` existir no projeto, leia-o e use-o como especificação de formato — ele substitui o formato padrão abaixo e pode ter sido customizado para este projeto.
+
+## Formato padrão
+
+### Ordem de criação obrigatória
 
 ```
 colors.md → typography.md → spacing.md → components.md → themes.md
@@ -325,5 +331,5 @@ Usado quando: lista ou resultado de busca está vazio
 
 ## Referências
 
+- Formato do artefato (customizável): `docs/sdd/design-system-format.md`
 - Guia de entrevista: `references/interview-guide.md`
-- Exemplo anotado: `references/design-system-example.md`

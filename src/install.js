@@ -9,6 +9,11 @@ const templateDir = path.resolve(__dirname, "../template");
 export function installToProject(platform = "claude") {
     const cwd = process.cwd();
 
+    const docsSource = path.join(templateDir, "docs");
+    const docsDest = path.join(cwd, "docs");
+    fs.copySync(docsSource, docsDest, { overwrite: false });
+    console.log("✅ Formatos SDD instalados em docs/sdd/");
+
     if (platform === "claude") {
         const claudeSource = path.join(templateDir, ".claude");
         const claudeDest = path.join(cwd, ".claude");

@@ -1,23 +1,11 @@
----
-name: reqs-standards
-description: >
-    Padrões de qualidade para criação de requisitos funcionais no formato EARS
-    neste projeto. Define a estrutura obrigatória de cada requisito, os quatro
-    padrões EARS, critérios de qualidade, como derivar requisitos do PRD, User
-    Stories e cenários BDD, formato esperado e regras gerais. Use junto com o
-    interview-guide para conduzir a entrevista e o reqs-example como régua de
-    qualidade.
+# Formato: Requisitos Funcionais (EARS)
+
+> Este arquivo define o formato de saída esperado para o artefato `requirements.md`.
+> Edite este arquivo para adaptar o formato ao seu projeto ou empresa.
+
 ---
 
-# Padrões de Requisitos Funcionais (EARS)
-
-## Especificação de formato
-
-> Se `docs/sdd/reqs-format.md` existir no projeto, leia-o e use-o como especificação de formato — ele substitui o formato padrão abaixo e pode ter sido customizado para este projeto.
-
-## Formato padrão
-
-### Os quatro padrões EARS
+## Os quatro padrões EARS
 
 | Padrão | Quando usar | Sintaxe |
 |--------|-------------|---------|
@@ -85,20 +73,6 @@ description: >
 
 ---
 
-## Como derivar dos artefatos
-
-| Fonte | Padrão EARS resultante |
-|---|---|
-| PRD → Objetivos com "Permitir" | `When <ação>, the system shall <comportamento>` |
-| PRD → Objetivos com "Rejeitar"/"Validar" | `If <condição>, the system shall <comportamento>` |
-| PRD → Fluxo Principal (passo do sistema) | `When <evento do usuário>, the system shall <resposta>` |
-| PRD → Fluxos Alternativos | `If <condição de falha>, the system shall <comportamento>` |
-| Stories → critério de aceitação happy path | `When <ação>, the system shall <comportamento>` |
-| Stories → critério de validação | `If <condição>, the system shall <comportamento>` |
-| BDD → When + Then de cada Scenario | Transforme em obrigação EARS; `And` no Then → considere 2º requisito |
-
----
-
 ## Regras de formato
 
 - **Arquivo:** `docs/features/<slug>/requirements.md`
@@ -106,11 +80,3 @@ description: >
 - **Comentários e anotações:** português (`> Fonte:`, títulos `##`)
 - **Numeração:** sequencial global — REQ-1, REQ-2... (não reinicia por grupo)
 - **Agrupamento:** cabeçalhos `##` por categoria (Fluxo Principal, Validação, Segurança...)
-
----
-
-## Referências
-
-- Formato do artefato (customizável): `docs/sdd/reqs-format.md`
-- Exemplo canônico (customizável): `docs/sdd/reqs-example.md`
-- Banco de perguntas: `references/interview-guide.md`

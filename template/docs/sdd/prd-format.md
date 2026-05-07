@@ -1,21 +1,11 @@
----
-name: prd-standards
-description: >
-    Padrões de qualidade para criação de PRDs (Product Requirements Documents)
-    neste projeto. Define as 10 seções obrigatórias, critérios de qualidade por
-    seção, formato esperado e regras gerais. Use junto com o interview-guide para
-    conduzir a entrevista e o prd-example como régua de qualidade.
+# Formato: PRD (Product Requirements Document)
+
+> Este arquivo define o formato de saída esperado para o artefato `prd.md`.
+> Edite este arquivo para adaptar o formato ao seu projeto ou empresa.
+
 ---
 
-# Padrões de PRD
-
-## Especificação de formato
-
-> Se `docs/sdd/prd-format.md` existir no projeto, leia-o e use-o como especificação de formato — ele substitui o formato padrão abaixo e pode ter sido customizado para este projeto.
-
-## Formato padrão
-
-### Estrutura obrigatória (10 seções, nesta ordem)
+## Estrutura obrigatória (10 seções, nesta ordem)
 
 1. Visão Geral
 2. Problema
@@ -105,11 +95,3 @@ _Formato: tabela `Risco | Mitigação`._
 - **Idioma:** português. Termos técnicos consagrados (JWT, OAuth, bcrypt) ficam em inglês.
 - **Título:** `# PRD — <Nome da Feature>` (travessão, não hífen)
 - **Seções vazias:** nunca em branco — se não se aplica, escrever por quê.
-
----
-
-## Referências
-
-- Formato do artefato (customizável): `docs/sdd/prd-format.md`
-- Exemplo canônico (customizável): `docs/sdd/prd-example.md`
-- Banco de perguntas: `references/interview-guide.md`

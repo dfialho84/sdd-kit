@@ -10,7 +10,13 @@ description: >
 
 # Padrões de Requisitos Não Funcionais
 
-## O que é um requisito não funcional
+## Especificação de formato
+
+> Se `docs/sdd/nf-reqs-format.md` existir no projeto, leia-o e use-o como especificação de formato — ele substitui o formato padrão abaixo e pode ter sido customizado para este projeto.
+
+## Formato padrão
+
+### O que é um requisito não funcional
 
 Um requisito não funcional (RNF) descreve **como o sistema deve se comportar em termos de qualidade**.
 
@@ -232,5 +238,6 @@ Para cada requisito funcional, pergunte:
 
 ## Referências
 
+- Formato do artefato (customizável): `docs/sdd/nf-reqs-format.md`
+- Exemplo canônico (customizável): `docs/sdd/nf-reqs-example.md`
 - Guia de entrevista e banco de perguntas: `references/interview-guide.md`
-- Exemplo anotado de RNFs de qualidade: `references/nf-reqs-example.md`

@@ -1,23 +1,11 @@
----
-name: design-standards
-description: >
-    Padrões de qualidade para criação de documentos de design técnico neste
-    projeto. Define as 6 seções obrigatórias, critérios de qualidade por seção,
-    como derivar decisões a partir de todos os artefatos SDD anteriores (PRD,
-    Stories, BDD Scenarios, Requirements, NF-Requirements), formato esperado
-    e regras gerais. Use junto com o interview-guide para conduzir a entrevista
-    e o design-example como régua de qualidade.
+# Formato: Design Técnico
+
+> Este arquivo define o formato de saída esperado para o artefato `design.md`.
+> Edite este arquivo para adaptar o formato ao seu projeto ou empresa.
+
 ---
 
-# Padrões de Design Técnico
-
-## Especificação de formato
-
-> Se `docs/sdd/design-format.md` existir no projeto, leia-o e use-o como especificação de formato — ele substitui o formato padrão abaixo e pode ter sido customizado para este projeto.
-
-## Formato padrão
-
-### Estrutura obrigatória (6 seções, nesta ordem)
+## Estrutura obrigatória (6 seções, nesta ordem)
 
 1. Visão Geral Técnica
 2. Arquitetura de Componentes
@@ -25,17 +13,6 @@ description: >
 4. API / Contratos
 5. Fluxo de Execução
 6. Decisões Técnicas
-
-**Fontes de entrada por artefato:**
-
-| Artefato | Papel no design |
-|----------|----------------|
-| `requirements.md` | O que o sistema **deve** fazer |
-| `nf-requirements.md` | Restrições de performance, segurança, observabilidade |
-| `scenarios.feature` | Esqueleto dos fluxos de execução e contratos de API |
-| `stories.md` | Critérios de aceitação e validações de entrada |
-| `prd.md` | Dependências externas, riscos, fora de escopo |
-| `docs/constitution.md` | Restrições arquiteturais não negociáveis |
 
 ---
 
@@ -100,11 +77,3 @@ _Formato: `### DT-N: <título>` com problema, alternativas, decisão, justificat
 - **Sem código:** sem código fonte; pseudocódigo aceitável apenas em Fluxo de Execução.
 - **Sem repetição:** se a informação está no PRD ou nos requisitos, referencie — não copie.
 - **Separadores:** usar `---` entre seções.
-
----
-
-## Referências
-
-- Formato do artefato (customizável): `docs/sdd/design-format.md`
-- Exemplo canônico (customizável): `docs/sdd/design-example.md`
-- Banco de perguntas: `references/interview-guide.md`
