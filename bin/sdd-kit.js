@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { installToProject, installGlobal, compileTemplates } from "../src/install.js";
+import { installToProject, installGlobal } from "../src/install.js";
 
 const args = process.argv.slice(2);
 const command = args[0];
@@ -114,31 +114,10 @@ async function run() {
             console.error("❌ Erro ao instalar:", err.message);
             process.exit(1);
         }
-    } else if (command === "compile") {
-        // Regenerate template/.gemini/ from template/.claude/
-        // Run this before `npm publish` after editing Claude artifacts
-        const platformArg = args.find((a) => a.startsWith("--platform") || a.startsWith("-p"));
-        let platforms = ["gemini"];
-
-        if (platformArg) {
-            const value = platformArg.split("=")[1] || args[args.indexOf(platformArg) + 1];
-            platforms = value === "all" ? ["gemini"] : [value];
-        } else if (args.includes("--all-platforms")) {
-            platforms = ["gemini"];
-        }
-
-        try {
-            compileTemplates(platforms);
-        } catch (err) {
-            console.error("❌ Erro ao compilar:", err.message);
-            process.exit(1);
-        }
     } else {
         console.log("Uso:");
         console.log("  sdd-kit init [--platform <claude|gemini|both>] [--global]");
         console.log("  sdd-kit init [--all-platforms] [--global]");
-        console.log("  sdd-kit compile                    (regenera template/.gemini/ a partir de template/.claude/)");
-        console.log("  sdd-kit compile --platform gemini  (explícito)");
         process.exit(1);
     }
 }

@@ -1,5 +1,0 @@
-{
-  "name": "create-constitution",
-  "description": "cria a constitution.md do projeto de forma incremental, seção por seção",
-  "prompt": "Inicie o agente `constitution-creator-agent`.\nRepasse para o agente o parâmetro informado pelo usuário: $ARGUMENTS"
-}

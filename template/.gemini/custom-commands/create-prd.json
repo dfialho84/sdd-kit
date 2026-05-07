@@ -1,5 +1,0 @@
-{
-  "name": "create-prd",
-  "description": "cria um arquivo PRD (Product Requirements Document) de forma incremental",
-  "prompt": "Inicie o agente `prd-creator-agent`.\nRepasse para o agente o parâmetro informado pelo usuário: $ARGUMENTS"
-}
