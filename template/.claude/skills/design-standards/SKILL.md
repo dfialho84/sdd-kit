@@ -43,7 +43,8 @@ _Formato: texto corrido, 2-4 frases._
 - [ ] Consistente com as restrições da `docs/constitution.md`
 
 ### 2. Arquitetura de Componentes
-_Formato: um bloco `### NomeComponente` por componente, com camada, responsabilidade e dependências._
+_Formato: diagrama `flowchart TD` seguido de um bloco `### NomeComponente` por componente, com camada, responsabilidade e dependências._
+- [ ] Inclui diagrama `flowchart TD` mostrando dependências entre todos os componentes (infra → aplicação → domínio)
 - [ ] Cada componente tem responsabilidade única e clara
 - [ ] Camadas seguem a arquitetura da `docs/constitution.md`
 - [ ] Dependências apontam para dentro (infra → aplicação → domínio)
@@ -52,7 +53,8 @@ _Formato: um bloco `### NomeComponente` por componente, com camada, responsabili
 - [ ] Novos componentes sinalizados explicitamente
 
 ### 3. Modelo de Dados
-_Formato: tabela `Campo | Tipo | Descrição` por entidade, com relações explícitas._
+_Formato: diagrama `erDiagram` seguido de tabela `Campo | Tipo | Descrição` por entidade, com relações explícitas._
+- [ ] Inclui diagrama `erDiagram` mostrando todas as entidades e suas relações
 - [ ] Entidades deriváveis dos requisitos ou cenários BDD — nenhuma inventada
 - [ ] Campos de expiração e uso único presentes onde NFRs exigem
 - [ ] Campos de auditoria declarados se o padrão do projeto exige
@@ -67,10 +69,11 @@ _Formato: `### MÉTODO /path` com autenticação, request body, response 200 e t
 - [ ] Autenticação de cada endpoint declarada
 
 ### 5. Fluxo de Execução
-_Formato: `### Fluxo: <nome do Scenario>`, passos numerados com componente responsável._
+_Formato: `### Fluxo: <nome do Scenario>`, passos numerados com componente responsável, seguidos de `sequenceDiagram` Mermaid._
 - [ ] Um fluxo por Scenario do `.feature`
 - [ ] Caminho feliz passo a passo do request até a resposta
 - [ ] Cada passo nomeia o componente responsável
+- [ ] Cada fluxo inclui `sequenceDiagram` com participantes e mensagens correspondendo aos passos numerados
 - [ ] Fluxos alternativos cobrem todos os cenários BDD de erro
 - [ ] Nenhum passo vago ("o sistema processa" sem especificar o quê)
 

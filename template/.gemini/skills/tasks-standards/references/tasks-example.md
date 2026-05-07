@@ -469,3 +469,63 @@
 **Rastreabilidade:** NFR-6 · REQ-11
 **Depende de:** T-09
 **Concluída quando:** Todos os eventos listados aparecem nos logs em ambiente de desenvolvimento e a política de retenção de 1 ano está configurada na infraestrutura de logs do projeto.
+
+---
+
+## Grafo de Dependências
+
+<!-- ✅ Derivado automaticamente dos campos "Depende de" de cada task -->
+<!-- ✅ Permite visualizar o caminho crítico antes de começar a implementação -->
+
+```mermaid
+flowchart TD
+    T01["T-01: Criar entidade<br/>VerificationCode"]
+    T02["T-02: Migration<br/>verification_codes"]
+    T03["T-03: Domain.generateCode()"]
+    T04["T-04: CodeRepo.save()"]
+    T05["T-05: DriverRepo.findByContact()"]
+    T06["T-06: EmailAdapter.send()"]
+    T07["T-07: SmsAdapter.send()"]
+    T08["T-08: Schema POST /request"]
+    T09["T-09: POST /request endpoint"]
+    T10["T-10: E2E caminho feliz"]
+    T11["T-11: Perf NFR-1"]
+    T12["T-12: Domain.validateCode()"]
+    T13["T-13: CodeRepo.findValid()"]
+    T14["T-14: POST /verify endpoint"]
+    T15["T-15: CodeRepo.markAsUsed()"]
+    T16["T-16: PasswordService.hash()"]
+    T17["T-17: DriverRepo.updatePasswordHash()"]
+    T18["T-18: Schema POST /reset"]
+    T19["T-19: POST /reset endpoint"]
+    T30["T-30: RateLimiter.check()"]
+    T31["T-31: RateLimiter.increment()"]
+    T32["T-32: Handler 429<br/>POST /request"]
+    T37["T-37: Logging NFR-6"]
+
+    T01 --> T02
+    T01 --> T04
+    T01 --> T13
+    T01 --> T15
+    T02 --> T09
+    T03 --> T09
+    T04 --> T09
+    T05 --> T09
+    T06 --> T09
+    T07 --> T09
+    T08 --> T09
+    T12 --> T14
+    T13 --> T14
+    T14 --> T10
+    T15 --> T19
+    T16 --> T19
+    T17 --> T19
+    T18 --> T19
+    T30 --> T09
+    T31 --> T09
+    T30 --> T32
+    T31 --> T32
+    T32 --> T09
+    T09 --> T11
+    T09 --> T37
+```

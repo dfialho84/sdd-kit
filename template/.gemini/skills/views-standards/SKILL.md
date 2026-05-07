@@ -96,6 +96,8 @@ Textos estáticos relevantes para o usuário (títulos, subtítulos, instruçõe
 
 **Propósito:** Descrever como a tela se comporta em cada situação observável.
 
+**Formato:** Inclua um diagrama `stateDiagram-v2` representando todas as transições da máquina de estados da tela antes de descrever cada estado individualmente.
+
 **Estados a documentar (inclua apenas os que se aplicam):**
 
 ### Padrão (initial)
@@ -118,6 +120,7 @@ O que o usuário vê ou recebe após a ação bem-sucedida. Derivado dos `Then` 
 Estado quando não há dados a exibir (listas, histórico, resultados de busca).
 
 **Checklist de qualidade:**
+- [ ] Inclui diagrama `stateDiagram-v2` com todos os estados e as transições entre eles
 - [ ] Estado de Erro tem mensagens literais dos `Then` — não paráfrases
 - [ ] Estado de Sucesso descreve o que o usuário vê/recebe (redirecionamento, mensagem, etc.)
 - [ ] Estado de Carregamento descrito quando há operação assíncrona nos Scenarios

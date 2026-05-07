@@ -26,6 +26,14 @@ description: ">"
 
 ## NFRs sem REQ direto   ← apenas se houver NFRs não cobertos acima
 ...
+
+## Grafo de Dependências   ← derivado automaticamente dos campos "Depende de"
+
+```mermaid
+flowchart TD
+    T01["T-01: ..."] --> T02["T-02: ..."]
+    ...
+```
 ```
 
 ---
@@ -102,6 +110,7 @@ description: ">"
 - [ ] Cada Scenario tem ao menos 1 task de teste
 - [ ] Cada componente novo do `design.md` tem ao menos 1 task
 - [ ] Cada endpoint tem ao menos 1 task de implementação e 1 task de teste
+- [ ] Grafo de dependências `flowchart TD` presente ao final, derivado dos campos "Depende de" de cada task
 
 ---
 

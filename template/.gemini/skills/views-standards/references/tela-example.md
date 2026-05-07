@@ -110,6 +110,18 @@ Feature: **Registrar Usuário** | Tela: **Página de Cadastro**
 ```markdown
 ## Estados
 
+```mermaid
+stateDiagram-v2
+    [*] --> Padrão
+    Padrão --> Carregamento : visitante submete formulário
+    Carregamento --> Erro : sistema rejeita cadastro
+    Carregamento --> Sucesso : cadastro realizado com sucesso
+    Erro --> Padrão : visitante corrige dados
+    Sucesso --> [*]
+```
+
+> O diagrama `stateDiagram-v2` é derivado dos Scenarios: o `When o visitante preenche todos os campos e envia` dispara a transição Padrão→Carregamento. Os `Then` de erro (via Scenario Outline) disparam Carregamento→Erro. O `Then` do caminho feliz dispara Carregamento→Sucesso. O usuário que recebeu erro pode voltar ao Padrão corrigindo os dados.
+
 ### Padrão (initial)
 Formulário exibido com todos os campos vazios e o botão "Cadastrar" habilitado.
 Foto de perfil sem imagem pré-selecionada.
