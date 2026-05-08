@@ -27,10 +27,10 @@ O `sdd-kit` instala no seu projeto (ou globalmente) um conjunto de artefatos pro
 
 ### Gemini CLI (`.gemini/`)
 
-| Artefato            | Localização              | Descrição                                        |
-| ------------------- | ------------------------ | ------------------------------------------------ |
-| **Custom Commands** | `.gemini/custom-commands/` | Comandos `/sdd-*` para cada etapa do fluxo SDD |
-| **Skills**          | `.gemini/skills/`        | Extensions e skills reutilizáveis pelos agentes  |
+| Artefato            | Localização         | Descrição                                        |
+| ------------------- | ------------------- | ------------------------------------------------ |
+| **Commands**        | `.gemini/commands/` | Comandos `/sdd-*` para cada etapa do fluxo SDD (arquivos `.toml`) |
+| **Skills**          | `.gemini/skills/`   | Extensions e skills reutilizáveis pelos agentes  |
 
 ### Formatos SDD (`docs/sdd/`)
 
@@ -54,7 +54,7 @@ Esses arquivos ficam em `docs/sdd/` no projeto e são lidos pelos agentes em tem
 
 ### No projeto atual (recomendado)
 
-Ao rodar sem flags, um prompt interativo pergunta qual plataforma instalar:
+Ao rodar sem flags, um prompt interativo pergunta qual plataforma instalar e em que idioma os agentes devem operar:
 
 ```bash
 npx @dfialho84/sdd-kit init
@@ -68,7 +68,16 @@ Qual plataforma você deseja instalar?
   3) Ambas as plataformas
 ```
 
-Use ↑/↓ para navegar e Enter para confirmar.
+```
+What language should agents use to communicate and generate documents?
+
+▶ 1) English
+  2) Português
+  3) Español
+  4) Français
+```
+
+Use ↑/↓ para navegar e Enter para confirmar. A escolha de idioma é salva em `.claude/sdd-config.md` (e/ou `.gemini/sdd-config.md`) e pode ser alterada manualmente a qualquer momento. Em re-instalações, o arquivo é preservado.
 
 ### Especificando a plataforma diretamente
 
@@ -153,9 +162,9 @@ Após a instalação, os comandos ficam disponíveis diretamente no Claude Code 
 
 ```
 .gemini/
-├── custom-commands/
-│   ├── create-constitution.md
-│   ├── create-prd.md
+├── commands/
+│   ├── create-constitution.toml
+│   ├── create-prd.toml
 │   └── ...
 └── skills/
     ├── impl-agent-agent/

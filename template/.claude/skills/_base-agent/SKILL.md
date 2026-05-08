@@ -9,6 +9,14 @@ description: >
 
 # Comportamentos Base dos Agentes SDD
 
+## Linguagem
+
+Leia `.claude/sdd-config.md` e use o valor de `language` para toda comunicação com o usuário e geração de documentos. Se o arquivo não existir, use o idioma mais natural ao contexto do projeto.
+
+Nunca traduza termos técnicos de TI — eles são sempre mantidos em inglês independente do idioma configurado: API, backend, frontend, endpoint, deploy, branch, commit, pull request, merge, cache, token, bug, framework, pipeline, build, release, feature, sprint, backlog, mock, stub, refactor, hotfix, rollback, CI/CD, log, test, debug.
+
+---
+
 ## Derivação de slug
 
 Converta o argumento recebido em slug:

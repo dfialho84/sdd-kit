@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import fs from "fs";
+import path from "path";
 import { installToProject, installGlobal } from "../src/install.js";
 
 const args = process.argv.slice(2);
@@ -83,6 +85,114 @@ async function askPlatform() {
     });
 }
 
+function getExistingLanguage(platform, isGlobal) {
+    const baseDir = isGlobal ? process.env.HOME : process.cwd();
+    const dirs = [];
+    if (platform === "claude" || platform === "both") dirs.push(path.join(baseDir, ".claude"));
+    if (platform === "gemini" || platform === "both") dirs.push(path.join(baseDir, ".gemini"));
+
+    for (const dir of dirs) {
+        const configPath = path.join(dir, "sdd-config.md");
+        if (fs.existsSync(configPath)) {
+            const match = fs.readFileSync(configPath, "utf8").match(/^language:\s*(.+)$/m);
+            if (match) return match[1].trim();
+        }
+    }
+    return null;
+}
+
+async function askLanguage() {
+    const RESET  = "\x1b[0m";
+    const BOLD   = "\x1b[1m";
+    const CYAN   = "\x1b[96m";
+    const DIM    = "\x1b[2m";
+
+    const options = [
+        { label: "English",   value: "English"    },
+        { label: "Português", value: "Português"  },
+        { label: "Español",   value: "Español"    },
+        { label: "Français",  value: "Français"   },
+        { label: "Deutsch",   value: "Deutsch"    },
+        { label: "Other...",  value: "__other__"  },
+    ];
+
+    function render(selected) {
+        process.stdout.write(`\x1b[${options.length}A`);
+        options.forEach((opt, i) => {
+            const cursor = i === selected ? `${BOLD}${CYAN}▶ ` : `${DIM}  `;
+            const num    = i === selected ? `${BOLD}${CYAN}${i + 1})` : `${DIM}${i + 1})`;
+            const text   = i === selected ? `${BOLD}${CYAN}${opt.label}` : `${DIM}${opt.label}`;
+            process.stdout.write(`\r${cursor}${num} ${text}${RESET}\n`);
+        });
+    }
+
+    const picked = await new Promise((resolve) => {
+        console.log(`\n${BOLD}What language should agents use to communicate and generate documents?${RESET}\n`);
+
+        let selected = 0;
+        options.forEach((opt, i) => {
+            process.stdout.write(`  ${DIM}${i + 1}) ${opt.label}${RESET}\n`);
+        });
+
+        process.stdin.setRawMode(true);
+        process.stdin.resume();
+        process.stdin.setEncoding("utf8");
+
+        render(selected);
+
+        process.stdin.on("data", function onKey(key) {
+            if (key === "\x1B[A") {
+                selected = (selected - 1 + options.length) % options.length;
+                render(selected);
+            } else if (key === "\x1B[B") {
+                selected = (selected + 1) % options.length;
+                render(selected);
+            } else if (key === "\r" || key === "\n") {
+                process.stdin.setRawMode(false);
+                process.stdin.pause();
+                process.stdin.removeListener("data", onKey);
+                console.log();
+                resolve(options[selected].value);
+            } else if (key === "\x03") {
+                process.stdin.setRawMode(false);
+                process.stdout.write("\n");
+                process.exit(0);
+            }
+        });
+    });
+
+    if (picked !== "__other__") return picked;
+
+    return new Promise((resolve) => {
+        process.stdout.write(`${BOLD}Language name:${RESET} `);
+        let input = "";
+        process.stdin.setRawMode(true);
+        process.stdin.resume();
+        process.stdin.setEncoding("utf8");
+        process.stdin.on("data", function onChar(ch) {
+            if (ch === "\r" || ch === "\n") {
+                process.stdin.setRawMode(false);
+                process.stdin.pause();
+                process.stdin.removeListener("data", onChar);
+                process.stdout.write("\n");
+                resolve(input.trim() || "English");
+            } else if (ch === "\x7f") {
+                if (input.length > 0) {
+                    input = input.slice(0, -1);
+                    process.stdout.write("\b \b");
+                }
+            } else if (ch === "\x03") {
+                process.stdin.setRawMode(false);
+                process.stdout.write("\n");
+                process.exit(0);
+            } else {
+                input += ch;
+                process.stdout.write(ch);
+            }
+        });
+    });
+}
+
 async function run() {
     printHeader();
 
@@ -105,11 +215,23 @@ async function run() {
             platform = await askPlatform();
         }
 
+        const existingLanguage = getExistingLanguage(platform, global);
+        let language;
+        if (existingLanguage) {
+            const BOLD = "\x1b[1m";
+            const CYAN = "\x1b[96m";
+            const RESET = "\x1b[0m";
+            console.log(`\nLanguage: ${BOLD}${CYAN}${existingLanguage}${RESET} (preserved from existing config)\n`);
+            language = existingLanguage;
+        } else {
+            language = await askLanguage();
+        }
+
         try {
             if (global) {
-                installGlobal(platform);
+                installGlobal(platform, language);
             } else {
-                installToProject(platform, overwriteFormats);
+                installToProject(platform, overwriteFormats, language);
             }
         } catch (err) {
             console.error("❌ Erro ao instalar:", err.message);
