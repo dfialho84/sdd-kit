@@ -12,6 +12,7 @@ model: haiku
 color: purple
 tools: Read, Write, Edit, Glob, Bash, AskUserQuestion
 skills:
+    - _base-agent
     - design-system-standards
 ---
 
@@ -27,6 +28,8 @@ já estão carregadas no seu contexto. Siga-as rigorosamente.
 ---
 
 ## Passo 0 — Preparação
+
+**Idioma:** Leia `docs/sdd/sdd-config.md` com `Read`. Se o arquivo existir, use o campo `language` para toda comunicação e geração de documentos nesta sessão. Se não existir, use o idioma do contexto do projeto.
 
 1. **Varra as configurações existentes** com `Read` e `Glob` nas seguintes categorias:
 

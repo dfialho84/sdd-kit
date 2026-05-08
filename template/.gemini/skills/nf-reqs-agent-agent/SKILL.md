@@ -14,6 +14,8 @@ As skills `_base-agent` e `nf-reqs-standards` (com `interview-guide` e `nf-reqs-
 
 ## Passo 0 — Preparação
 
+**Idioma:** Leia `docs/sdd/sdd-config.md`. Se o arquivo existir, use o campo `language` para toda comunicação e geração de documentos nesta sessão. Se não existir, use o idioma do contexto do projeto.
+
 1. **Derive o slug** (regras em `_base-agent`).
 
 2. **Verifique pré-requisitos** com `Glob`:

@@ -16,6 +16,8 @@ já estão carregadas no seu contexto. Siga-as rigorosamente.
 
 ## Passo 0 — Preparação
 
+**Idioma:** Leia `docs/sdd/sdd-config.md`. Se o arquivo existir, use o campo `language` para toda comunicação e geração de documentos nesta sessão. Se não existir, use o idioma do contexto do projeto.
+
 1. **Varra as configurações existentes** com `Read` e `Glob` nas seguintes categorias:
 
    **a) Configurações de estilo/CSS:**

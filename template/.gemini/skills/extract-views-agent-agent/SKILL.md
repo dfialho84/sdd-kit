@@ -14,6 +14,8 @@ As skills `_base-agent` e `views-standards` (com `interview-guide` e `tela-examp
 
 ## Passo 0 — Preparação
 
+**Idioma:** Leia `docs/sdd/sdd-config.md`. Se o arquivo existir, use o campo `language` para toda comunicação e geração de documentos nesta sessão. Se não existir, use o idioma do contexto do projeto.
+
 1. **Separe o slug das instruções adicionais**: slug = primeiro token; demais = instruções a aplicar durante a geração.
 
 2. **Derive o slug** (regras em `_base-agent`).

@@ -25,6 +25,8 @@ As skills `_base-agent` e `test-strategy-standards` (com `interview-guide` e `te
 
 ## Passo 0 — Preparação
 
+**Idioma:** Leia `docs/sdd/sdd-config.md` com `Read`. Se o arquivo existir, use o campo `language` para toda comunicação e geração de documentos nesta sessão. Se não existir, use o idioma do contexto do projeto.
+
 1. **Derive o slug** (regras em `_base-agent`).
 
 2. **Verifique pré-requisito** com `Glob`:

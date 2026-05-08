@@ -15,6 +15,8 @@ já estão carregadas no seu contexto. Siga-as rigorosamente.
 
 ## Passo 0 — Preparação
 
+**Idioma:** Leia `docs/sdd/sdd-config.md`. Se o arquivo existir, use o campo `language` para toda comunicação e geração de documentos nesta sessão. Se não existir, use o idioma do contexto do projeto.
+
 Ao receber o argumento inicial (contexto opcional sobre o projeto):
 
 1. **Leia o CLAUDE.md** com `Read` (se existir):
