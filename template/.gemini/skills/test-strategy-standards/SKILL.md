@@ -1,10 +1,17 @@
 ---
-name: "test-strategy-standards"
-description: ">"
+name: test-strategy-standards
+description: "Padrões de qualidade para criação de test-strategy.md por feature. Define os 5 tipos de teste obrigatórios (unitários, integração, E2E Gherkin, performance, segurança), as fontes de derivação de cada tipo a partir dos artefatos SDD, critérios de qualidade, formato esperado e cobertura mínima. Use junto com interview-guide e test-strategy-example como régua de qualidade."
 ---
+
 # Padrões de Estratégia de Testes
 
-## O que é o test-strategy.md
+## Especificação de formato
+
+> Se `docs/sdd/test-strategy-format.md` existir no projeto, leia-o e use-o como especificação de formato — ele substitui o formato padrão abaixo e pode ter sido customizado para este projeto.
+
+## Formato padrão
+
+### O que é o test-strategy.md
 
 O `test-strategy.md` especifica **quais testes devem existir** para uma feature,
 organizados por tipo, com rastreabilidade aos artefatos que os originaram.
@@ -316,5 +323,6 @@ Cobertura mínima obrigatória:
 
 ## Referências
 
+- Formato do artefato (customizável): `docs/sdd/test-strategy-format.md`
+- Exemplo canônico (customizável): `docs/sdd/test-strategy-example.md`
 - Guia de entrevista: `references/interview-guide.md`
-- Exemplo anotado: `references/test-strategy-example.md`

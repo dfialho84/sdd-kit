@@ -26,10 +26,41 @@ de o contato estar cadastrado, conforme NFR-3.
 
 ## Arquitetura de Componentes
 
+<!-- ✅ Diagrama flowchart TD mostrando dependências entre todas as camadas -->
 <!-- ✅ Cada componente tem camada e responsabilidade única -->
 <!-- ✅ Dependências apontam para dentro (infra → application → domain) -->
 <!-- ✅ Serviços externos (email, SMS) isolados em adapters de infraestrutura -->
 <!-- ✅ Todos os REQs são endereçados por ao menos um componente -->
+
+```mermaid
+flowchart TD
+    subgraph interface
+        PRC[PasswordRecoveryController]
+    end
+    subgraph application
+        PRS[PasswordRecoveryService]
+    end
+    subgraph domain
+        PRD[PasswordRecoveryDomain]
+    end
+    subgraph infrastructure
+        DDR[DeliveryDriverRepository<br/>PostgreSQL]
+        VCR[VerificationCodeRepository<br/>Redis]
+        RLA[RateLimiterAdapter<br/>Redis]
+        ENA[EmailNotificationAdapter<br/>SendGrid]
+        SNA[SmsNotificationAdapter<br/>Twilio]
+        PS[PasswordService<br/>bcrypt]
+    end
+
+    PRC --> PRS
+    PRS --> PRD
+    PRS --> DDR
+    PRS --> VCR
+    PRS --> RLA
+    PRS --> ENA
+    PRS --> SNA
+    PRS --> PS
+```
 
 ### PasswordRecoveryController
 - **Camada:** interface
@@ -80,11 +111,38 @@ de o contato estar cadastrado, conforme NFR-3.
 
 ## Modelo de Dados
 
+<!-- ✅ Diagrama erDiagram mostrando todas as entidades e relações -->
 <!-- ✅ Entidades derivadas dos requisitos e cenários BDD, não inventadas -->
 <!-- ✅ Cada campo tem tipo e descrição -->
 <!-- ✅ TTL de expiração presente (NFR-2: invalidar após 5 minutos) -->
 <!-- ✅ Campo `used_at` para garantir uso único (REQ-10) -->
 <!-- ✅ Nenhum DDL ou detalhe de migração -->
+
+```mermaid
+erDiagram
+    DeliveryDriver {
+        UUID id
+        string email
+        string phone
+        string password_hash
+    }
+    VerificationCode {
+        UUID id
+        UUID driver_id
+        string code
+        enum channel
+        timestamp expires_at
+        timestamp used_at
+        timestamp created_at
+    }
+    RateLimitEntry {
+        string key
+        int value
+        int ttl
+    }
+
+    DeliveryDriver ||--o{ VerificationCode : "possui"
+```
 
 ### VerificationCode
 | Campo | Tipo | Descrição |
@@ -225,6 +283,46 @@ de o contato estar cadastrado, conforme NFR-3.
 19. **DeliveryDriverRepository** atualiza `password_hash` do entregador
 20. **RateLimiterAdapter** reinicia o contador do contato (NFR-4 — sucesso zera o bloqueio)
 21. **PasswordRecoveryController** retorna `200 OK` com mensagem de sucesso
+
+```mermaid
+sequenceDiagram
+    actor Entregador
+    participant Controller as PasswordRecoveryController
+    participant Service as PasswordRecoveryService
+    participant RateLimit as RateLimiterAdapter
+    participant DriverRepo as DeliveryDriverRepository
+    participant Domain as PasswordRecoveryDomain
+    participant CodeRepo as VerificationCodeRepository
+    participant Notify as EmailNotificationAdapter
+
+    Entregador->>Controller: POST /request {channel, contact}
+    Controller->>Service: requestCode(channel, contact)
+    Service->>RateLimit: check(contact, ip)
+    RateLimit-->>Service: permitido
+    Service->>DriverRepo: findByContact(channel, contact)
+    DriverRepo-->>Service: driver encontrado
+    Service->>Domain: generateCode()
+    Domain-->>Service: {code, expiresAt}
+    Service->>CodeRepo: save(driverId, code, channel, expiresAt)
+    Service->>Notify: send(contact, code)
+    Controller-->>Entregador: 200 OK
+
+    Entregador->>Controller: POST /verify {contact, code}
+    Service->>CodeRepo: findValid(contact, code)
+    CodeRepo-->>Service: código válido
+    Service->>Domain: validate(code, expiresAt, usedAt)
+    Service->>CodeRepo: markAsUsed(codeId)
+    Service-->>Controller: reset_token
+    Controller-->>Entregador: 200 OK {reset_token}
+
+    Entregador->>Controller: POST /reset {password, password_confirmation}
+    Controller->>Domain: validatePasswordMatch()
+    Controller->>Domain: validatePasswordStrength()
+    Service->>Service: hash(password)
+    Service->>DriverRepo: updatePasswordHash(driverId, hash)
+    Service->>RateLimit: reset(contact)
+    Controller-->>Entregador: 200 OK
+```
 
 **Fluxos alternativos:**
 

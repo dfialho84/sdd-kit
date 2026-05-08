@@ -1,7 +1,8 @@
 ---
-name: "jsdoc-standards"
-description: ">"
+name: jsdoc-standards
+description: "Use esta skill para QUALQUER tarefa de documentação em TypeScript ou JavaScript: escrever JSDoc em funções, classes, interfaces, tipos, métodos, módulos ou arquivos. Invoque sempre que o usuário pedir para documentar, comentar, adicionar JSDoc, explicar código via comentários, ou revisar documentação existente em TS/JS. Também use ao criar novos arquivos TS/JS que precisam de documentação desde o início."
 ---
+
 # Padrões JSDoc para TypeScript/JavaScript
 
 ## Princípios fundamentais

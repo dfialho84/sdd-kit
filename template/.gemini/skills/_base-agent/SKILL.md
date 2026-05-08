@@ -1,7 +1,8 @@
 ---
-name: "_base-agent"
-description: ">"
+name: _base-agent
+description: "Comportamentos compartilhados por todos os agentes SDD: derivação de slug, template de verificação de pré-requisitos, loop de construção incremental (Anunciar → Rascunho → Apresentar → Avaliar → Perguntar → Salvar) e regras universais de entrevista e arquivo."
 ---
+
 # Comportamentos Base dos Agentes SDD
 
 ## Derivação de slug
@@ -75,3 +76,17 @@ Após completar todos os itens:
 - Escreva cada item **logo após finalizá-lo** — não acumule para escrever tudo no final.
 - Use `Edit` para adicionar seções/itens ao arquivo — nunca `Write` (sobrescreve o que já foi salvo).
 - O formato segue exatamente o padrão da skill de referência do agente.
+
+---
+
+## Diagramas Mermaid
+
+Sempre que uma seção envolver fluxos, relações entre componentes ou transições de estado, inclua um diagrama Mermaid adequado:
+
+- Fluxos de controle ou de usuário → `flowchart LR` ou `flowchart TD`
+- Sequências de chamadas entre componentes → `sequenceDiagram`
+- Relações entre entidades de dados → `erDiagram`
+- Transições de estado de uma tela → `stateDiagram-v2`
+- Dependências entre tasks ou componentes → `flowchart TD`
+
+**Regra:** o diagrama complementa o texto — não duplica. Se o texto já é autoexplicativo e o diagrama não acrescentaria compreensão, omita.

@@ -1,10 +1,17 @@
 ---
-name: "reqs-standards"
-description: ">"
+name: reqs-standards
+description: "Padrões de qualidade para criação de requisitos funcionais no formato EARS neste projeto. Define a estrutura obrigatória de cada requisito, os quatro padrões EARS, critérios de qualidade, como derivar requisitos do PRD, User Stories e cenários BDD, formato esperado e regras gerais. Use junto com o interview-guide para conduzir a entrevista e o reqs-example como régua de qualidade."
 ---
+
 # Padrões de Requisitos Funcionais (EARS)
 
-## Os quatro padrões EARS
+## Especificação de formato
+
+> Se `docs/sdd/reqs-format.md` existir no projeto, leia-o e use-o como especificação de formato — ele substitui o formato padrão abaixo e pode ter sido customizado para este projeto.
+
+## Formato padrão
+
+### Os quatro padrões EARS
 
 | Padrão | Quando usar | Sintaxe |
 |--------|-------------|---------|
@@ -98,5 +105,6 @@ description: ">"
 
 ## Referências
 
+- Formato do artefato (customizável): `docs/sdd/reqs-format.md`
+- Exemplo canônico (customizável): `docs/sdd/reqs-example.md`
 - Banco de perguntas: `references/interview-guide.md`
-- Exemplo anotado: `references/reqs-example.md`

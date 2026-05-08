@@ -88,12 +88,14 @@ Entregador com conta previamente criada via a feature `register-user`.
 
 ## Fluxo Principal
 
-Entregador acessa a página de login
-→ Preenche identificador e senha
-→ Sistema valida as credenciais
-→ Sistema autentica o entregador
-→ Sessão do usuário é iniciada
-→ Entregador é redirecionado para o dashboard
+```mermaid
+flowchart LR
+    A([Entregador acessa<br/>página de login]) --> B[Preenche<br/>identificador e senha]
+    B --> C[Sistema valida<br/>as credenciais]
+    C --> D[Sistema autentica<br/>o entregador]
+    D --> E[Sessão do usuário<br/>é iniciada]
+    E --> F([Entregador é redirecionado<br/>para o dashboard])
+```
 
 ---
 
@@ -101,10 +103,12 @@ Entregador acessa a página de login
 
 ### Credenciais inválidas
 
-Entregador envia credenciais incorretas
-→ Sistema rejeita autenticação
-→ Mensagem de erro é exibida
-→ Entregador pode tentar novamente
+```mermaid
+flowchart LR
+    A([Entregador envia<br/>credenciais incorretas]) --> B[Sistema rejeita<br/>autenticação]
+    B --> C[Mensagem de erro<br/>é exibida]
+    C --> D([Entregador pode<br/>tentar novamente])
+```
 
 ---
 

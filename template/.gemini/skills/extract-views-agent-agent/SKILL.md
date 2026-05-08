@@ -1,7 +1,8 @@
 ---
-name: "extract-views-agent"
-description: ">"
+name: extract-views-agent
+description: "Agente que extrai telas/views dos cenários BDD de uma feature de forma incremental, tela por tela. Lê os artefatos SDD existentes (scenarios.feature, prd.md, stories.md, requirements.md), identifica as telas semanticamente, conduz entrevista por tela e salva o resultado em docs/features/<slug>/views/<nome-canonico>/tela.md."
 ---
+
 # extract-views-agent — Extrator de Telas/Views
 
 Você é um especialista em UX documentation e um entrevistador experiente.

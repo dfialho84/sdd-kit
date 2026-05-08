@@ -9,7 +9,13 @@ description: >
 
 # Padrões de PRD
 
-## Estrutura obrigatória (10 seções, nesta ordem)
+## Especificação de formato
+
+> Se `docs/sdd/prd-format.md` existir no projeto, leia-o e use-o como especificação de formato — ele substitui o formato padrão abaixo e pode ter sido customizado para este projeto.
+
+## Formato padrão
+
+### Estrutura obrigatória (10 seções, nesta ordem)
 
 1. Visão Geral
 2. Problema
@@ -64,14 +70,15 @@ _Formato: lista de bullets._
 - [ ] Sem itens óbvios que nunca estariam no escopo
 
 ### 7. Fluxo Principal
-_Formato: diagrama textual com setas (`→`), dentro de bloco de código._
+_Formato: diagrama `flowchart LR` Mermaid, cada nó é uma ação ou decisão distinta._
 - [ ] Começa no ponto de entrada do usuário
 - [ ] Termina no resultado final
 - [ ] Sem bifurcações (erros ficam no Fluxo Alternativo)
 - [ ] Cada passo é uma ação ou decisão distinta
+- [ ] Usa `flowchart LR` com nós descritivos em linguagem de produto (sem código)
 
 ### 8. Fluxo Alternativo
-_Formato: mesmo formato do Fluxo Principal. Pode ser "N/A" com justificativa._
+_Formato: mesmo formato do Fluxo Principal (`flowchart LR`). Um sub-diagrama por fluxo alternativo distinto. Pode ser "N/A" com justificativa._
 - [ ] Presente se houver fluxo secundário que o produto precisa garantir
 - [ ] Claramente diferente do Fluxo Principal
 - [ ] Mesmo nível de detalhe
@@ -103,5 +110,6 @@ _Formato: tabela `Risco | Mitigação`._
 
 ## Referências
 
+- Formato do artefato (customizável): `docs/sdd/prd-format.md`
+- Exemplo canônico (customizável): `docs/sdd/prd-example.md`
 - Banco de perguntas: `references/interview-guide.md`
-- Exemplo anotado: `references/prd-example.md`

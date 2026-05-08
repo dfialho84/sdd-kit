@@ -1,10 +1,17 @@
 ---
-name: "bdd-scenarios-standards"
-description: ">"
+name: bdd-scenarios-standards
+description: "Padrões de qualidade para criação de cenários BDD (Gherkin) neste projeto. Define a estrutura obrigatória de cada cenário, critérios de qualidade, como derivar cenários do PRD e das User Stories, formato esperado e regras gerais. Use junto com o interview-guide para conduzir a entrevista e o scenarios-example como régua de qualidade."
 ---
+
 # Padrões de Cenários BDD
 
-## Estrutura obrigatória do arquivo `.feature`
+## Especificação de formato
+
+> Se `docs/sdd/scenarios-format.md` existir no projeto, leia-o e use-o como especificação de formato — ele substitui o formato padrão abaixo e pode ter sido customizado para este projeto.
+
+## Formato padrão
+
+### Estrutura obrigatória do arquivo `.feature`
 
 Cada arquivo segue este formato:
 
@@ -130,5 +137,6 @@ Cobre situações limite que não são nem o caminho feliz nem um erro comum.
 
 ## Referências
 
+- Formato do artefato (customizável): `docs/sdd/scenarios-format.md`
+- Exemplo canônico (customizável): `docs/sdd/scenarios-example.feature`
 - Guia de entrevista e banco de perguntas: `references/interview-guide.md`
-- Exemplo anotado de cenários de qualidade: `references/scenarios-example.feature`

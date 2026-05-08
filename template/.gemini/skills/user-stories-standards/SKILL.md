@@ -1,10 +1,17 @@
 ---
-name: "user-stories-standards"
-description: ">"
+name: user-stories-standards
+description: "Padrões de qualidade para criação de estórias de usuário neste projeto. Define a estrutura obrigatória de cada estória, critérios de qualidade baseados no modelo INVEST adaptado, formato esperado e regras gerais. Use junto com o interview-guide para conduzir a entrevista e o stories-example como régua de qualidade."
 ---
+
 # Padrões de Estórias de Usuário
 
-## Estrutura obrigatória de cada estória
+## Especificação de formato
+
+> Se `docs/sdd/user-stories-format.md` existir no projeto, leia-o e use-o como especificação de formato — ele substitui o formato padrão abaixo e pode ter sido customizado para este projeto.
+
+## Formato padrão
+
+### Estrutura obrigatória de cada estória
 
 Cada estória segue este formato, sem exceções:
 
@@ -111,5 +118,6 @@ Cobre controle de acesso, proteção de dados ou comportamento em tentativas abu
 
 ## Referências
 
+- Formato do artefato (customizável): `docs/sdd/user-stories-format.md`
+- Exemplo canônico (customizável): `docs/sdd/user-stories-example.md`
 - Guia de entrevista e banco de perguntas: `references/interview-guide.md`
-- Exemplo anotado de estórias de qualidade: `references/stories-example.md`

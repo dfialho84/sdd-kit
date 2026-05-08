@@ -1,10 +1,17 @@
 ---
-name: "tasks-standards"
-description: ">"
+name: tasks-standards
+description: "Padrões de qualidade para criação de tasks de implementação no formato tasks.md. Tasks são organizadas por requisito funcional (um bloco por REQ), com granularidade de card de board (uma task por método, endpoint ou migration). Cada task tem checkbox, descrição, rastreabilidade e dependências. Use junto com interview-guide e tasks-example como régua de qualidade."
 ---
+
 # Padrões de Tasks de Implementação
 
-## Estrutura do arquivo
+## Especificação de formato
+
+> Se `docs/sdd/tasks-format.md` existir no projeto, leia-o e use-o como especificação de formato — ele substitui o formato padrão abaixo e pode ter sido customizado para este projeto.
+
+## Formato padrão
+
+### Estrutura do arquivo
 
 ```markdown
 # Tasks — <Nome da Feature>
@@ -26,6 +33,14 @@ description: ">"
 
 ## NFRs sem REQ direto   ← apenas se houver NFRs não cobertos acima
 ...
+
+## Grafo de Dependências   ← derivado automaticamente dos campos "Depende de"
+
+```mermaid
+flowchart TD
+    T01["T-01: ..."] --> T02["T-02: ..."]
+    ...
+```
 ```
 
 ---
@@ -102,10 +117,12 @@ description: ">"
 - [ ] Cada Scenario tem ao menos 1 task de teste
 - [ ] Cada componente novo do `design.md` tem ao menos 1 task
 - [ ] Cada endpoint tem ao menos 1 task de implementação e 1 task de teste
+- [ ] Grafo de dependências `flowchart TD` presente ao final, derivado dos campos "Depende de" de cada task
 
 ---
 
 ## Referências
 
+- Formato do artefato (customizável): `docs/sdd/tasks-format.md`
+- Exemplo canônico (customizável): `docs/sdd/tasks-example.md`
 - Guia para refinamento do índice: `references/interview-guide.md`
-- Exemplo anotado: `references/tasks-example.md`

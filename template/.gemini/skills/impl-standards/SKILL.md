@@ -1,7 +1,8 @@
 ---
-name: "impl-standards"
-description: ">"
+name: impl-standards
+description: "Padrões de qualidade para implementação guiada por artefatos SDD. Define o ciclo de implementação por task (implementar → verificar estaticamente → testar → confirmar critério → relatar → aguardar aprovação), as regras de verificação por tipo de teste, o formato do relatório e as condições de avanço entre tasks. Use junto com verification-guide e impl-example."
 ---
+
 # Padrões de Implementação
 
 ## O que é o ciclo de implementação

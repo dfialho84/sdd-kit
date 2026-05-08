@@ -1,7 +1,8 @@
 ---
-name: "design-system-standards"
-description: ">"
+name: design-system-standards
+description: "Padrões de qualidade para criação dos arquivos do design system em docs/design-system/. Define a estrutura obrigatória de cada arquivo (colors.md, typography.md, spacing.md, components.md, themes.md), critérios de qualidade por arquivo, como extrair decisões de configurações existentes (qualquer stack: Tailwind, CSS Modules, Styled Components, etc.) e regras gerais. Use junto com interview-guide e design-system-example."
 ---
+
 # Padrões de Design System
 
 ## O que é o design system
@@ -34,7 +35,13 @@ docs/
 
 ---
 
-## Ordem de criação obrigatória
+## Especificação de formato
+
+> Se `docs/sdd/design-system-format.md` existir no projeto, leia-o e use-o como especificação de formato — ele substitui o formato padrão abaixo e pode ter sido customizado para este projeto.
+
+## Formato padrão
+
+### Ordem de criação obrigatória
 
 ```
 colors.md → typography.md → spacing.md → components.md → themes.md
@@ -317,5 +324,5 @@ Usado quando: lista ou resultado de busca está vazio
 
 ## Referências
 
+- Formato do artefato (customizável): `docs/sdd/design-system-format.md`
 - Guia de entrevista: `references/interview-guide.md`
-- Exemplo anotado: `references/design-system-example.md`

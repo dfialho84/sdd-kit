@@ -15,7 +15,13 @@ A `constitution.md` é o conjunto de regras técnicas não-negociáveis que gove
 
 ---
 
-## Estrutura obrigatória
+## Especificação de formato
+
+> Se `docs/sdd/constitution-format.md` existir no projeto, leia-o e use-o como especificação de formato — ele substitui o formato padrão abaixo e pode ter sido customizado para este projeto.
+
+## Formato padrão
+
+### Estrutura obrigatória
 
 Uma constitution.md é composta pelas seguintes seções, nesta ordem:
 
@@ -133,5 +139,6 @@ Uma constitution.md é composta pelas seguintes seções, nesta ordem:
 
 ## Referências
 
+- Formato do artefato (customizável): `docs/sdd/constitution-format.md`
+- Exemplo canônico (customizável): `docs/sdd/constitution-example.md`
 - Guia de entrevista e banco de perguntas: `references/interview-guide.md`
-- Exemplo anotado de constitution de qualidade: `references/constitution-example.md`

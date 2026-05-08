@@ -71,8 +71,8 @@ Edite o arquivo `template/.claude/agents/<nome>.md`.
 description: Papel deste agente
 role: <papel>
 tools:
-  - ferramenta1
-  - ferramenta2
+    - ferramenta1
+    - ferramenta2
 ---
 
 Instruções do sistema do agente...
@@ -117,13 +117,14 @@ Apenas delete o arquivo/diretório em `template/.claude/`. A próxima compilaç�
 
 ## Recompilando
 
-Execute após **qualquer** alteração em `template/.claude/`:
+Execute, dentro do CLAUDE CLI, após **qualquer** alteração em `template/.claude/`:
 
 ```bash
-node bin/sdd-kit.js compile
+/convert-to-gemini
 ```
 
 Isso:
+
 1. Apaga `template/.gemini/` completamente
 2. Relê todos os artefatos de `template/.claude/`
 3. Transforma para o formato de cada plataforma
@@ -199,7 +200,7 @@ Isso significa que `template/.gemini/` **é publicado** junto com o pacote — u
 2. Crie `src/compilers/<plataforma>-writer.js` com a lógica de escrita
 3. Crie `src/compilers/<plataforma>-compiler.js` orquestrando parser + transformer + writer
 4. Adicione a plataforma em `src/install.js`:
-   - `installToProject()`: copiar `template/.<plataforma>/` para o projeto
-   - `compileTemplates()`: chamar o novo compilador
+    - `installToProject()`: copiar `template/.<plataforma>/` para o projeto
+    - `compileTemplates()`: chamar o novo compilador
 5. Adicione a opção no prompt interativo em `bin/sdd-kit.js`
 6. Compile: `node bin/sdd-kit.js compile --platform <plataforma>`

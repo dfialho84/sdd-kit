@@ -11,7 +11,13 @@ description: >
 
 # Padrões de Requisitos Funcionais (EARS)
 
-## Os quatro padrões EARS
+## Especificação de formato
+
+> Se `docs/sdd/reqs-format.md` existir no projeto, leia-o e use-o como especificação de formato — ele substitui o formato padrão abaixo e pode ter sido customizado para este projeto.
+
+## Formato padrão
+
+### Os quatro padrões EARS
 
 | Padrão | Quando usar | Sintaxe |
 |--------|-------------|---------|
@@ -105,5 +111,6 @@ description: >
 
 ## Referências
 
+- Formato do artefato (customizável): `docs/sdd/reqs-format.md`
+- Exemplo canônico (customizável): `docs/sdd/reqs-example.md`
 - Banco de perguntas: `references/interview-guide.md`
-- Exemplo anotado: `references/reqs-example.md`

@@ -1,7 +1,8 @@
 ---
-name: "constitution-standards"
-description: ">"
+name: constitution-standards
+description: "Padrões de qualidade para criação de constitution.md neste projeto. Define as 4 seções obrigatórias, critérios de qualidade por seção, formato esperado e regras gerais. Use junto com o interview-guide para conduzir a entrevista e o constitution-example como régua de qualidade."
 ---
+
 # Padrões de Constitution
 
 ## O que é a constitution.md
@@ -10,7 +11,13 @@ A `constitution.md` é o conjunto de regras técnicas não-negociáveis que gove
 
 ---
 
-## Estrutura obrigatória
+## Especificação de formato
+
+> Se `docs/sdd/constitution-format.md` existir no projeto, leia-o e use-o como especificação de formato — ele substitui o formato padrão abaixo e pode ter sido customizado para este projeto.
+
+## Formato padrão
+
+### Estrutura obrigatória
 
 Uma constitution.md é composta pelas seguintes seções, nesta ordem:
 
@@ -128,5 +135,6 @@ Uma constitution.md é composta pelas seguintes seções, nesta ordem:
 
 ## Referências
 
+- Formato do artefato (customizável): `docs/sdd/constitution-format.md`
+- Exemplo canônico (customizável): `docs/sdd/constitution-example.md`
 - Guia de entrevista e banco de perguntas: `references/interview-guide.md`
-- Exemplo anotado de constitution de qualidade: `references/constitution-example.md`
