@@ -87,16 +87,10 @@ async function askPlatform() {
 
 function getExistingLanguage(platform, isGlobal) {
     const baseDir = isGlobal ? process.env.HOME : process.cwd();
-    const dirs = [];
-    if (platform === "claude" || platform === "both") dirs.push(path.join(baseDir, ".claude"));
-    if (platform === "gemini" || platform === "both") dirs.push(path.join(baseDir, ".gemini"));
-
-    for (const dir of dirs) {
-        const configPath = path.join(dir, "sdd-config.md");
-        if (fs.existsSync(configPath)) {
-            const match = fs.readFileSync(configPath, "utf8").match(/^language:\s*(.+)$/m);
-            if (match) return match[1].trim();
-        }
+    const configPath = path.join(baseDir, "docs", "sdd", "sdd-config.md");
+    if (fs.existsSync(configPath)) {
+        const match = fs.readFileSync(configPath, "utf8").match(/^language:\s*(.+)$/m);
+        if (match) return match[1].trim();
     }
     return null;
 }

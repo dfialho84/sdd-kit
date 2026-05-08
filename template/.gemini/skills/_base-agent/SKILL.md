@@ -5,9 +5,18 @@ description: "Comportamentos compartilhados por todos os agentes SDD: derivaçã
 
 # Comportamentos Base dos Agentes SDD
 
+## Linguagem
+
+Leia `docs/sdd/sdd-config.md` e use o valor de `language` para toda comunicação com o usuário e geração de documentos. Se o arquivo não existir, use o idioma mais natural ao contexto do projeto.
+
+Nunca traduza termos técnicos de TI — eles são sempre mantidos em inglês independente do idioma configurado: API, backend, frontend, endpoint, deploy, branch, commit, pull request, merge, cache, token, bug, framework, pipeline, build, release, feature, sprint, backlog, mock, stub, refactor, hotfix, rollback, CI/CD, log, test, debug.
+
+---
+
 ## Derivação de slug
 
 Converta o argumento recebido em slug:
+
 - Minúsculas, espaços e underscores → hífens, remova acentos e caracteres especiais
 - Exemplos: `"Cadastro de Usuário"` → `cadastro-de-usuario` | `"Login de entregador"` → `login-entregador`
 
@@ -16,6 +25,7 @@ Converta o argumento recebido em slug:
 ## Template de verificação de pré-requisito
 
 Se um artefato obrigatório não existir, encerre com:
+
 ```
 [<nome-do-agente>] Erro: <artefato> não encontrado em docs/features/<slug>/<arquivo>.
 Execute /create-<comando> <nome da feature> antes de continuar.
@@ -32,6 +42,7 @@ Para cada item (seção, estória, requisito, tela, etc.), execute o ciclo na or
 **B. Rascunho** — derive dos artefatos e do que já foi construído. Não pergunte o que pode ser derivado.
 
 **C. Apresente**:
+
 ```
 Rascunho:
 ---
@@ -42,6 +53,7 @@ Rascunho:
 **D. Avalie** — percorra o checklist da skill de referência. Identifique o item mais crítico que falta.
 
 **E. Decida:**
+
 - Todos os itens cobertos → vá para G
 - Há itens faltando → vá para F
 
@@ -54,6 +66,7 @@ Rascunho:
 ## Template de finalização
 
 Após completar todos os itens:
+
 1. Leia o arquivo final com `Read`
 2. Verifique consistência (contradições, cobertura, vocabulário uniforme)
 3. Corrija com `Edit` e informe o usuário se necessário

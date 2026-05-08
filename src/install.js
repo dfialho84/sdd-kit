@@ -5,8 +5,8 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const templateDir = path.resolve(__dirname, "../template");
 
-function writeLanguageConfig(destDir, language) {
-    const configPath = path.join(destDir, "sdd-config.md");
+function writeLanguageConfig(baseDir, language) {
+    const configPath = path.join(baseDir, "docs", "sdd", "sdd-config.md");
     if (fs.existsSync(configPath)) return;
     const content = `# SDD Configuration\n\nlanguage: ${language}\n`;
     fs.outputFileSync(configPath, content);
@@ -24,27 +24,26 @@ export function installToProject(platform = "claude", overwriteFormats = false, 
         const claudeSource = path.join(templateDir, ".claude");
         const claudeDest = path.join(cwd, ".claude");
         fs.copySync(claudeSource, claudeDest, { overwrite: true });
-        writeLanguageConfig(claudeDest, language);
         console.log("✅ sdd-kit instalado em .claude/");
     } else if (platform === "gemini") {
         const geminiSource = path.join(templateDir, ".gemini");
         const geminiDest = path.join(cwd, ".gemini");
         fs.copySync(geminiSource, geminiDest, { overwrite: true });
-        writeLanguageConfig(geminiDest, language);
         console.log("✅ sdd-kit instalado em .gemini/");
     } else if (platform === "both") {
         const claudeSource = path.join(templateDir, ".claude");
         const claudeDest = path.join(cwd, ".claude");
         fs.copySync(claudeSource, claudeDest, { overwrite: true });
-        writeLanguageConfig(claudeDest, language);
         console.log("✅ sdd-kit instalado em .claude/");
 
         const geminiSource = path.join(templateDir, ".gemini");
         const geminiDest = path.join(cwd, ".gemini");
         fs.copySync(geminiSource, geminiDest, { overwrite: true });
-        writeLanguageConfig(geminiDest, language);
         console.log("✅ sdd-kit instalado em .gemini/");
     }
+
+    writeLanguageConfig(cwd, language);
+    console.log("✅ sdd-config.md gerado em docs/sdd/");
 }
 
 export function installGlobal(platform = "claude", language = "English") {
@@ -54,25 +53,24 @@ export function installGlobal(platform = "claude", language = "English") {
         const claudeSource = path.join(templateDir, ".claude");
         const claudeDest = path.join(homeDir, ".claude");
         fs.copySync(claudeSource, claudeDest, { overwrite: true });
-        writeLanguageConfig(claudeDest, language);
         console.log("✅ sdd-kit instalado globalmente em ~/.claude/");
     } else if (platform === "gemini") {
         const geminiSource = path.join(templateDir, ".gemini");
         const geminiDest = path.join(homeDir, ".gemini");
         fs.copySync(geminiSource, geminiDest, { overwrite: true });
-        writeLanguageConfig(geminiDest, language);
         console.log("✅ sdd-kit instalado globalmente em ~/.gemini/");
     } else if (platform === "both") {
         const claudeSource = path.join(templateDir, ".claude");
         const claudeDest = path.join(homeDir, ".claude");
         fs.copySync(claudeSource, claudeDest, { overwrite: true });
-        writeLanguageConfig(claudeDest, language);
         console.log("✅ sdd-kit instalado globalmente em ~/.claude/");
 
         const geminiSource = path.join(templateDir, ".gemini");
         const geminiDest = path.join(homeDir, ".gemini");
         fs.copySync(geminiSource, geminiDest, { overwrite: true });
-        writeLanguageConfig(geminiDest, language);
         console.log("✅ sdd-kit instalado globalmente em ~/.gemini/");
     }
+
+    writeLanguageConfig(homeDir, language);
+    console.log("✅ sdd-config.md gerado em ~/docs/sdd/");
 }
