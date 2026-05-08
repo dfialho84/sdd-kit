@@ -208,14 +208,23 @@ Os arquivos `*-example.md` (e `scenarios-example.feature`) servem como referênc
 Para atualizar os artefatos para a versão mais recente do pacote:
 
 ```bash
-npx sdd-kit@latest init
+npx @dfialho84/sdd-kit@latest init
 ```
 
-> Por padrão, arquivos existentes **não são sobrescritos**. Use `--force` para forçar a atualização:
->
-> ```bash
-> npx sdd-kit init --force
-> ```
+O comportamento de atualização difere por destino:
+
+| Destino | Comportamento padrão |
+| ------- | -------------------- |
+| `.claude/` / `.gemini/` | Sempre atualizado |
+| `docs/sdd/` | **Nunca sobrescrito** — suas customizações são preservadas |
+
+Se quiser também atualizar os arquivos de formato e exemplo em `docs/sdd/`, use a flag `--overwrite-formats`:
+
+```bash
+npx @dfialho84/sdd-kit@latest init --overwrite-formats
+```
+
+> **Atenção:** `--overwrite-formats` sobrescreve todos os arquivos em `docs/sdd/`, incluindo customizações que você tenha feito. Faça backup antes se necessário.
 
 ---
 

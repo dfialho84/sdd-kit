@@ -88,6 +88,7 @@ async function run() {
 
     if (command === "init" || command === undefined) {
         const global = args.includes("--global");
+        const overwriteFormats = args.includes("--overwrite-formats");
         let platform = "claude";
 
         // Check for explicit platform flag
@@ -108,7 +109,7 @@ async function run() {
             if (global) {
                 installGlobal(platform);
             } else {
-                installToProject(platform);
+                installToProject(platform, overwriteFormats);
             }
         } catch (err) {
             console.error("❌ Erro ao instalar:", err.message);
@@ -116,8 +117,8 @@ async function run() {
         }
     } else {
         console.log("Uso:");
-        console.log("  sdd-kit init [--platform <claude|gemini|both>] [--global]");
-        console.log("  sdd-kit init [--all-platforms] [--global]");
+        console.log("  sdd-kit init [--platform <claude|gemini|both>] [--global] [--overwrite-formats]");
+        console.log("  sdd-kit init [--all-platforms] [--global] [--overwrite-formats]");
         process.exit(1);
     }
 }
