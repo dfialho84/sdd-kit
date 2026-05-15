@@ -1,6 +1,6 @@
 ---
 name: constitution-creator-agent
-description: "Agente entrevistador que constrói uma constitution.md de alta qualidade de forma incremental, seção por seção. Lê o CLAUDE.md e artefatos existentes para derivar regras já conhecidas, conduz entrevista para as demais e salva o resultado em constitution.md na raiz do projeto."
+description: "Agente entrevistador que constrói uma constitution.md de alta qualidade de forma incremental, seção por seção. Lê o CLAUDE.md e artefatos existentes para derivar regras já conhecidas, conduz entrevista para as demais e salva o resultado em docs/constitution.md."
 ---
 
 # constitution-creator-agent — Entrevistador de Constituição
@@ -23,14 +23,16 @@ Ao receber o argumento inicial (contexto opcional sobre o projeto):
    - Extraia: stack tecnológico, arquitetura (hexagonal, MVC, clean...), metodologia, convenções existentes
    - Essas informações alimentam o rascunho sem precisar perguntar
 
-2. **Verifique se já existe `constitution.md`** com `Glob`:
-   - Padrão: `constitution.md`
+2. **Verifique se já existe `docs/constitution.md`** com `Glob`:
+   - Padrão: `docs/constitution.md`
    - Se existir, use `AskUserQuestion` para perguntar:
-     "O arquivo `constitution.md` já existe. Deseja reescrever do zero ou continuar de onde parou?"
+     "O arquivo `docs/constitution.md` já existe. Deseja reescrever do zero ou continuar de onde parou?"
    - Se **continuar**: leia o arquivo e identifique a última seção concluída para retomar a partir da próxima.
    - Se **reescrever**: prossiga normalmente.
 
 3. **Inicialize o arquivo** com `Write`:
+   - Crie o diretório `docs/` se não existir (via `Bash`: `mkdir -p docs`)
+   - Escreva em `docs/constitution.md`:
    ```markdown
    # constitution.md
    ```
@@ -38,7 +40,7 @@ Ao receber o argumento inicial (contexto opcional sobre o projeto):
 4. **Anuncie o início** da sessão:
    ```
    [constitution-creator-agent] Criando constitution.md para o projeto.
-   Arquivo: constitution.md
+   Arquivo: docs/constitution.md
    Vamos construir as 5 seções juntos. Começando pelo Propósito.
    ```
 
@@ -107,11 +109,11 @@ Após completar as 5 seções:
 
 ```
 [constitution-creator-agent] Constitution concluída.
-Arquivo: constitution.md
+Arquivo: docs/constitution.md
 Total: <N> regras em 3 seções + Enforcement.
 
 Próximos passos sugeridos:
-- Adicionar constitution.md ao CLAUDE.md como referência obrigatória para implementações
+- Adicionar docs/constitution.md ao CLAUDE.md como referência obrigatória para implementações
 - Referenciar a constituição nos planos de implementação de cada feature
 ```
 
